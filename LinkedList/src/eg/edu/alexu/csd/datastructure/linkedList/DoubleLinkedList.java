@@ -1,26 +1,30 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
 public class DoubleLinkedList{
-	DoubleLinkedNode head;
+	DoubleLinkedNode head,tail,headILinkedList,tailILinkedlist;
 	public void add(int index,Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
 		node.data1=element.data1;node.data2=element.data2;DoubleLinkedNode n=head;
+		int position=size();
 		if(index==0) {
 			node.nextnode=head;head.previousnode=node;head=node;
 		}
+		else if(position==index) {
+			node.previousnode=tail;tail.nextnode=node;tail=node;
+		}
 		else {
 			for(int i=0;i<index-1;i++) n=n.nextnode;
-            DoubleLinkedNode k=n.nextnode;
-            n.nextnode=node;node.previousnode=n;node.nextnode=k;
+			DoubleLinkedNode k=n.nextnode;
+			node.previousnode=n;n.nextnode=node;
+			node.nextnode=k;k.previousnode=node;
 		}
 	}
 	public void add(Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
-		node.data1=element.data1;node.data2=element.data2;DoubleLinkedNode tail=node;
-		if(head==null) head=node;
+		node.data1=element.data1;node.data2=element.data2;
+		if(head==null) { head=node;tail=node;}
 		else {
-			  DoubleLinkedNode n=head;
-		      while(n.nextnode!=null) n=n.nextnode;
-		      n.nextnode=tail;tail.previousnode=n;
+			  while(tail.nextnode!=null) tail=tail.nextnode;
+			  node.previousnode=tail;tail.nextnode=node;tail=node;
 		}
 	}
 	public Object get(int index) {
@@ -32,20 +36,21 @@ public class DoubleLinkedList{
 	public void set(int index,Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
 		node.data1=element.data1;node.data2=element.data2;
-		DoubleLinkedNode n=head;
+		DoubleLinkedNode n=head;int position=size()-1;
 		if(index==0) {
-			DoubleLinkedNode k=n.nextnode;
+			DoubleLinkedNode k=head.nextnode;
 			node.nextnode=k;k.previousnode=node;head=node;
+		}
+		else if(position==index) {
+			DoubleLinkedNode k=tail.previousnode;
+			node.previousnode=k;k.nextnode=node;tail=node;
 		}
 		else {
 			for(int i=0;i<index-1;i++) n=n.nextnode;
 		    DoubleLinkedNode l=n.nextnode;
 		    DoubleLinkedNode k=l.nextnode;
-		    try {
-		    	 k.previousnode=node;node.nextnode=k;n.nextnode=node;node.previousnode=n;
-			} catch (Exception e) {
-				node.nextnode=k;n.nextnode=node;node.previousnode=n;
-			}
+		    node.previousnode=n;n.nextnode=node;
+		    node.nextnode=k;k.previousnode=node;
 		    
 		}
 	}
@@ -57,16 +62,15 @@ public class DoubleLinkedList{
 		else return false;
 	}
 	public void remove(int index) {
-		DoubleLinkedNode n=head;
-		if(index==0) {
-			DoubleLinkedNode k=n.nextnode;
-			head=k;k.previousnode=head;
-		}
+		DoubleLinkedNode n=head;int position=size()-1;
+		if(index==0) {head=head.nextnode;head.previousnode=null;}
+		else if(position==index) {tail=tail.previousnode;tail.nextnode=null;}
 		else {
 			for(int i=0;i<index-1;i++) n=n.nextnode;
-		    DoubleLinkedNode l=n.nextnode;
-		    DoubleLinkedNode k=l.nextnode;
-		    n.nextnode=k;k.previousnode=n;
+			DoubleLinkedNode l=n.nextnode;
+			DoubleLinkedNode k=l.nextnode;
+		    n.nextnode=k;
+		    k.previousnode=n;
 		}
 	}
 	public int size() {
@@ -78,10 +82,10 @@ public class DoubleLinkedList{
 		return size;
 	}
 	public ILinkedList sublist(int fromIndex,int toIndex) {
-		DoubleLinkedNode n=head;ILinkedList list=new ILinkedList(n);
+		DoubleLinkedNode n=head;ILinkedList list=new ILinkedList();
 		for(int i=0;i<fromIndex;i++) n=n.nextnode;
 		for(int i=fromIndex;i<=toIndex;i++) {
-			list.n2.data1=n.data1;System.out.println(n.data1);n=n.nextnode;
+			ILinkedList(new Object(n.data1,n.data2));n=n.nextnode;
 		}
 		return list;
 	}
@@ -92,6 +96,13 @@ public class DoubleLinkedList{
 			else n=n.nextnode;
 		}
 		return false;
+	}
+	public void ILinkedList(Object element) {
+		 DoubleLinkedNode node=new DoubleLinkedNode();
+		 node.data1=element.data1;node.data2=element.data2;
+		 System.out.println(node.data1);
+		
+		
 	}
 	public void show() {
 		DoubleLinkedNode node=head;

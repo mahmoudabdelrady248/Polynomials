@@ -1,6 +1,6 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
 public class SingleLinkedList {
-SingleLinkedNode head;
+SingleLinkedNode head,headILinkedList;
 public void add(int index,Object element) {
 	SingleLinkedNode node=new SingleLinkedNode();
 	node.data1=element.data1;node.data2=element.data2;
@@ -71,10 +71,10 @@ public int size() {
 	return size;
 }
 public ILinkedList sublist(int fromIndex,int toIndex) {
-	SingleLinkedNode n=head;ILinkedList list=new ILinkedList(n);
+	SingleLinkedNode n=head;ILinkedList list=new ILinkedList();
 	for(int i=0;i<fromIndex;i++) n=n.next;
 	for(int i=fromIndex;i<=toIndex;i++) {
-		list.n1.data1=n.data1;System.out.println(n.data1);n=n.next;
+		ILinkedList(new Object(n.data1,n.data2));n=n.next;
 	}
 	return list;
 }
@@ -85,6 +85,11 @@ public boolean contain(Object o) {
 		else tail=tail.next;
 	}
 	return false;
+}
+public void ILinkedList(Object element) {
+	SingleLinkedNode node=new SingleLinkedNode();
+	node.data1=element.data1;node.data2=element.data2;
+	System.out.println(node.data1);
 }
 public void show() {
 	SingleLinkedNode node=head;
