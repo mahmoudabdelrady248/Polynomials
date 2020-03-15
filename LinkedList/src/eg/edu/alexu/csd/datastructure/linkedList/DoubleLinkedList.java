@@ -1,5 +1,5 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
-public class DoubleLinkedList{
+public class DoubleLinkedList implements ILinkedList{
 	DoubleLinkedNode head,tail,headILinkedList,tailILinkedlist;
 	public void add(int index,Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
@@ -82,12 +82,12 @@ public class DoubleLinkedList{
 		return size;
 	}
 	public ILinkedList sublist(int fromIndex,int toIndex) {
-		DoubleLinkedNode n=head;ILinkedList list=new ILinkedList();
+		DoubleLinkedNode n=head;
 		for(int i=0;i<fromIndex;i++) n=n.nextnode;
 		for(int i=fromIndex;i<=toIndex;i++) {
-			ILinkedList(new Object(n.data1,n.data2));n=n.nextnode;
+			System.out.println(n.data1);n=n.nextnode;
 		}
-		return list;
+		return null;
 	}
 	public boolean contains(Object o) {
 		DoubleLinkedNode n=head;
@@ -96,13 +96,6 @@ public class DoubleLinkedList{
 			else n=n.nextnode;
 		}
 		return false;
-	}
-	public void ILinkedList(Object element) {
-		 DoubleLinkedNode node=new DoubleLinkedNode();
-		 node.data1=element.data1;node.data2=element.data2;
-		 System.out.println(node.data1);
-		
-		
 	}
 	public void show() {
 		DoubleLinkedNode node=head;

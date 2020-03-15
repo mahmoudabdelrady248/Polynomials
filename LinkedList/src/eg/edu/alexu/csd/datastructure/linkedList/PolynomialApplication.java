@@ -1,6 +1,6 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
 import java.lang.Math;
-public class PolynomialApplication {
+public class PolynomialApplication implements IPolynomialSolver {
 SingleLinkedList list1=new SingleLinkedList();
 SingleLinkedList list2=new SingleLinkedList();
 SingleLinkedList list3=new SingleLinkedList();
@@ -57,27 +57,27 @@ public String print(char poly) {
 		try {
 			SingleLinkedNode n1=list1.head;
 			while(n1.next!=null) {
-			if(n1.data1==0) n1=n1.next;	
-			else if(n1.data2==0) {
+			if((Integer)n1.data1==0) n1=n1.next;	
+			else if((Integer)n1.data2==0) {
 					System.out.printf("s",n1.data1+"");
-					if(n1.next.data1>0) {System.out.printf(" +");n1=n1.next;}
+					if((Integer)n1.next.data1>0) {System.out.printf(" +");n1=n1.next;}
 					else n1=n1.next;
 				}
-			else if(n1.data1==1&&n1.data2!=0) {
+			else if((Integer)n1.data1==1&&(Integer)n1.data2!=0) {
 				System.out.printf("%s","x^"+n1.data2+"");
-				if(n1.next.data1>0) {System.out.printf(" +");n1=n1.next;}
+				if((Integer)n1.next.data1>0) {System.out.printf(" +");n1=n1.next;}
 				else n1=n1.next;
 			}
 				else {
 					System.out.printf("%s",n1.data1+"x^"+n1.data2+"");
-					if(n1.next.data1>0) {System.out.printf(" +");n1=n1.next;}
+					if((Integer)n1.next.data1>0) {System.out.printf(" +");n1=n1.next;}
 					else n1=n1.next;
 						
 				}
 			}
-			if(n1.data1==0) break;
-			else if(n1.data2==0) {System.out.printf("%s",n1.data1+"");}
-			else if(n1.data1==1&&n1.data2!=0) {System.out.printf("%s","x^"+n1.data2+"");}
+			if((Integer)n1.data1==0) break;
+			else if((Integer)n1.data2==0) {System.out.printf("%s",n1.data1+"");}
+			else if((Integer)n1.data1==1&&(Integer)n1.data2!=0) {System.out.printf("%s","x^"+n1.data2+"");}
 			else {System.out.printf("%s",n1.data1+"x^"+n1.data2+"");}
 			System.out.println("\npolynomial A is set");break;
 		} catch (Exception e) {
@@ -88,27 +88,27 @@ public String print(char poly) {
 		try {
 			SingleLinkedNode n2=list2.head;
 			while(n2.next!=null) {
-			if(n2.data1==0) n2=n2.next;	
-			else if(n2.data2==0) {
+			if((Integer)n2.data1==0) n2=n2.next;	
+			else if((Integer)n2.data2==0) {
 					System.out.printf("s",n2.data1+"");
-					if(n2.next.data1>0) {System.out.printf(" +");n2=n2.next;}
+					if((Integer)n2.next.data1>0) {System.out.printf(" +");n2=n2.next;}
 					else n2=n2.next;
 				}
-			else if(n2.data1==1&&n2.data2!=0) {
+			else if((Integer)n2.data1==1&&(Integer)n2.data2!=0) {
 				System.out.printf("%s","x^"+n2.data2+"");
-				if(n2.next.data1>0) {System.out.printf(" +");n2=n2.next;}
+				if((Integer)n2.next.data1>0) {System.out.printf(" +");n2=n2.next;}
 				else n2=n2.next;
 			}
 				else {
 					System.out.printf("%s",n2.data1+"x^"+n2.data2+"");
-					if(n2.next.data1>0) {System.out.printf(" +");n2=n2.next;}
+					if((Integer)n2.next.data1>0) {System.out.printf(" +");n2=n2.next;}
 					else n2=n2.next;
 						
 				}
 			}
-			if(n2.data1==0) break;
-			else if(n2.data2==0) {System.out.printf("%s",n2.data1+"");}
-			else if(n2.data1==1&&n2.data2!=0) {System.out.printf("%s","x^"+n2.data2+"");}
+			if((Integer)n2.data1==0) break;
+			else if((Integer)n2.data2==0) {System.out.printf("%s",n2.data1+"");}
+			else if((Integer)n2.data1==1&&(Integer)n2.data2!=0) {System.out.printf("%s","x^"+n2.data2+"");}
 			else {System.out.printf("%s",n2.data1+"x^"+n2.data2+"");}
 			System.out.println("\npolynomial B is set");break;
 		} catch (Exception e) {
@@ -119,27 +119,27 @@ public String print(char poly) {
 		try {
 			SingleLinkedNode n3=list3.head;
 			while(n3.next!=null) {
-			if(n3.data1==0) n3=n3.next;	
-			else if(n3.data2==0) {
+			if((Integer)n3.data1==0) n3=n3.next;	
+			else if((Integer)n3.data2==0) {
 					System.out.printf("s",n3.data1+"");
-					if(n3.next.data1>0) {System.out.printf(" +");n3=n3.next;}
+					if((Integer)n3.next.data1>0) {System.out.printf(" +");n3=n3.next;}
 					else n3=n3.next;
 				}
-			else if(n3.data1==1&&n3.data2!=0) {
+			else if((Integer)n3.data1==1&&(Integer)n3.data2!=0) {
 				System.out.printf("%s","x^"+n3.data2+"");
-				if(n3.next.data1>0) {System.out.printf(" +");n3=n3.next;}
+				if((Integer)n3.next.data1>0) {System.out.printf(" +");n3=n3.next;}
 				else n3=n3.next;
 			}
 				else {
 					System.out.printf("%s",n3.data1+"x^"+n3.data2+"");
-					if(n3.next.data1>0) {System.out.printf(" +");n3=n3.next;}
+					if((Integer)n3.next.data1>0) {System.out.printf(" +");n3=n3.next;}
 					else n3=n3.next;
 						
 				}
 			}
-			if(n3.data1==0) break;
-			else if(n3.data2==0) {System.out.printf("%s",n3.data1+"");}
-			else if(n3.data1==1&&n3.data2!=0) {System.out.printf("%s","x^"+n3.data2+"");}
+			if((Integer)n3.data1==0) break;
+			else if((Integer)n3.data2==0) {System.out.printf("%s",n3.data1+"");}
+			else if((Integer)n3.data1==1&&(Integer)n3.data2!=0) {System.out.printf("%s","x^"+n3.data2+"");}
 			else {System.out.printf("%s",n3.data1+"x^"+n3.data2+"");}	
 			System.out.println("\npolynomial C is set");break;
 		} catch (Exception e) {
@@ -150,27 +150,27 @@ public String print(char poly) {
 		try {
 			SingleLinkedNode n4=list4.head;
 			while(n4.next!=null) {
-			if(n4.data1==0) n4=n4.next;	
-			else if(n4.data2==0) {
+			if((Integer)n4.data1==0) n4=n4.next;	
+			else if((Integer)n4.data2==0) {
 					System.out.printf("s",n4.data1+"");
-					if(n4.next.data1>0) {System.out.printf(" +");n4=n4.next;}
+					if((Integer)n4.next.data1>0) {System.out.printf(" +");n4=n4.next;}
 					else n4=n4.next;
 				}
-			else if(n4.data1==1&&n4.data2!=0) {
+			else if((Integer)n4.data1==1&&(Integer)n4.data2!=0) {
 				System.out.printf("%s","x^"+n4.data2+"");
-				if(n4.next.data1>0) {System.out.printf(" +");n4=n4.next;}
+				if((Integer)n4.next.data1>0) {System.out.printf(" +");n4=n4.next;}
 				else n4=n4.next;
 			}
 				else {
 					System.out.printf("%s",n4.data1+"x^"+n4.data2+"");
-					if(n4.next.data1>0) {System.out.printf(" +");n4=n4.next;}
+					if((Integer)n4.next.data1>0) {System.out.printf(" +");n4=n4.next;}
 					else n4=n4.next;
 						
 				}
 			}
-			if(n4.data1==0) break;
-			else if(n4.data2==0) {System.out.printf("%s",n4.data1+"");}
-			else if(n4.data1==1&&n4.data2!=0) {System.out.printf("%s","x^"+n4.data2+"");}
+			if((Integer)n4.data1==0) break;
+			else if((Integer)n4.data2==0) {System.out.printf("%s",n4.data1+"");}
+			else if((Integer)n4.data1==1&&(Integer)n4.data2!=0) {System.out.printf("%s","x^"+n4.data2+"");}
 			else {System.out.printf("%s",n4.data1+"x^"+n4.data2+"");}
 			System.out.println("\npolynomial R is set");break;
 		} catch (Exception e) {
@@ -181,7 +181,7 @@ public String print(char poly) {
 	
 	return null;
 }
-public void clear(char poly) {
+public void clearPolynomial(char poly) {
 	switch(poly) {
 	case 'A':
 		list1.clear();break;
@@ -199,25 +199,25 @@ public float evaluatePolynomial(char poly,float value) {
 	case 'A':
 		SingleLinkedNode n1=list1.head;
 		while(n1!=null) {
-			a+=n1.data1*Math.pow(value,n1.data2);
+			a+=(Integer)n1.data1*Math.pow(value,(Integer)n1.data2);
 			n1=n1.next;
 		}break;
 	case 'B':
 		SingleLinkedNode n2=list2.head;
 		while(n2!=null) {
-			a+=n2.data1*Math.pow(value,n2.data2);
+			a+=(Integer)n2.data1*Math.pow(value,(Integer)n2.data2);
 			n2=n2.next;
 		}break;
 	case 'C':
 		SingleLinkedNode n3=list3.head;
 		while(n3!=null) {
-			a+=n3.data1*Math.pow(value,n3.data2);
+			a+=(Integer)n3.data1*Math.pow(value,(Integer)n3.data2);
 			n3=n3.next;
 		}break;
 	case 'R':
 		SingleLinkedNode n4=list4.head;
 		while(n4!=null) {
-			a+=n4.data1*Math.pow(value,n4.data2);
+			a+=(Integer)n4.data1*Math.pow(value,(Integer)n4.data2);
 			n4=n4.next;
 		}break;
 	}
@@ -227,25 +227,25 @@ public int [][] add(char poly1,char poly2){
 	int [][]a=new int [100][2];
 	switch(poly1&poly2) {
 	case 'A'&'B':
-		SingleLinkedNode n1=list1.head;SingleLinkedNode n2=list2.head;int n=0,l;
+		SingleLinkedNode n1=list1.head;SingleLinkedNode n2=list2.head;Integer n=0,l;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
-				if(n1.data2<n2.data2) {
-					a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				if((Integer)n1.data2<(Integer)n2.data2) {
+					a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 				}
-				else if(n1.data2>n2.data2) {
-					a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				else if((Integer)n1.data2>(Integer)n2.data2) {
+					a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 				}
 				else {
-				    l=n1.data1+n2.data1;
-					a[n][0]=l;a[n][1]=n1.data2;n1=n1.next;n2=n2.next;n++;
+				    l=(Integer)n1.data1+(Integer)n2.data1;
+					a[n][0]=l;a[n][1]=(Integer)n1.data2;n1=n1.next;n2=n2.next;n++;
 				}
 			}
 			else if(n1==null&&n2!=null) {
-				a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 			}
 			else {
-				a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 			}
 		}
 		for(int i=0;i<n;i++) {
@@ -255,22 +255,22 @@ public int [][] add(char poly1,char poly2){
 		n1=list1.head;n2=list3.head;n=0;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
-				if(n1.data2<n2.data2) {
-					a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				if((Integer)n1.data2<(Integer)n2.data2) {
+					a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 				}
-				else if(n1.data2>n2.data2) {
-					a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				else if((Integer)n1.data2>(Integer)n2.data2) {
+					a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 				}
 				else {
-				    l=n1.data1+n2.data1;
-					a[n][0]=l;a[n][1]=n1.data2;n1=n1.next;n2=n2.next;n++;
+				    l=(Integer)n1.data1+(Integer)n2.data1;
+					a[n][0]=l;a[n][1]=(Integer)n1.data2;n1=n1.next;n2=n2.next;n++;
 				}
 			}
 			else if(n1==null&&n2!=null) {
-				a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 			}
 			else {
-				a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 			}
 		}
 		for(int i=0;i<n;i++) {
@@ -280,22 +280,22 @@ public int [][] add(char poly1,char poly2){
 		n1=list2.head;n2=list3.head; n=0;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
-				if(n1.data2<n2.data2) {
-					a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				if((Integer)n1.data2<(Integer)n2.data2) {
+					a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 				}
-				else if(n1.data2>n2.data2) {
-					a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				else if((Integer)n1.data2>(Integer)n2.data2) {
+					a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 				}
 				else {
-				    l=n1.data1+n2.data1;
-					a[n][0]=l;a[n][1]=n1.data2;n1=n1.next;n2=n2.next;n++;
+				    l=(Integer)n1.data1+(Integer)n2.data1;
+					a[n][0]=l;a[n][1]=(Integer)n1.data2;n1=n1.next;n2=n2.next;n++;
 				}
 			}
 			else if(n1==null&&n2!=null) {
-				a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 			}
 			else {
-				a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 			}
 		}
 		for(int i=0;i<n;i++) {
@@ -312,23 +312,23 @@ public int [][]subtract(char poly1,char poly2){
 		SingleLinkedNode n1=list1.head;SingleLinkedNode n2=list2.head;int n=0,l;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
-				if(n1.data2<n2.data2) {
-					a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				if((Integer)n1.data2<(Integer)n2.data2) {
+					a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 				}
-				else if(n1.data2>n2.data2) {
-					a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				else if((Integer)n1.data2>(Integer)n2.data2) {
+					a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 				}
 				else {
-					if(poly1=='A'&&poly2=='B') l=n1.data1-n2.data1;
-					else l=n2.data1-n1.data1;
-					a[n][0]=l;a[n][1]=n1.data2;n1=n1.next;n2=n2.next;n++;
+					if(poly1=='A'&&poly2=='B') l=(Integer)n1.data1-(Integer)n2.data1;
+					else l=(Integer)n2.data1-(Integer)n1.data1;
+					a[n][0]=l;a[n][1]=(Integer)n1.data2;n1=n1.next;n2=n2.next;n++;
 				}
 			}
 			else if(n1==null&&n2!=null) {
-				a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 			}
 			else {
-				a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 			}
 		}
 		for(int i=0;i<n;i++) {
@@ -340,23 +340,23 @@ public int [][]subtract(char poly1,char poly2){
 		n1=list1.head;n2=list3.head;n=0;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
-				if(n1.data2<n2.data2) {
-					a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				if((Integer)n1.data2<(Integer)n2.data2) {
+					a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 				}
-				else if(n1.data2>n2.data2) {
-					a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				else if((Integer)n1.data2>(Integer)n2.data2) {
+					a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 				}
 				else {
-					if(poly1=='A'&&poly2=='C') l=n1.data1-n2.data1;
-					else l=n2.data1-n1.data1;
-					a[n][0]=l;a[n][1]=n1.data2;n1=n1.next;n2=n2.next;n++;
+					if(poly1=='A'&&poly2=='C') l=(Integer)n1.data1-(Integer)n2.data1;
+					else l=(Integer)n2.data1-(Integer)n1.data1;
+					a[n][0]=l;a[n][1]=(Integer)n1.data2;n1=n1.next;n2=n2.next;n++;
 				}
 			}
 			else if(n1==null&&n2!=null) {
-				a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 			}
 			else {
-				a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 			}
 		}
 		for(int i=0;i<n;i++) {
@@ -367,23 +367,23 @@ public int [][]subtract(char poly1,char poly2){
 		n1=list2.head;n2=list3.head;n=0;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
-				if(n1.data2<n2.data2) {
-					a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				if((Integer)n1.data2<(Integer)n2.data2) {
+					a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 				}
-				else if(n1.data2>n2.data2) {
-					a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				else if((Integer)n1.data2>(Integer)n2.data2) {
+					a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 				}
 				else {
-					if(poly1=='B'&&poly2=='c') l=n1.data1-n2.data1;
-					else l=n2.data1-n1.data1;
-					a[n][0]=l;a[n][1]=n1.data2;n1=n1.next;n2=n2.next;n++;
+					if(poly1=='B'&&poly2=='c') l=(Integer)n1.data1-(Integer)n2.data1;
+					else l=(Integer)n2.data1-(Integer)n1.data1;
+					a[n][0]=l;a[n][1]=(Integer)n1.data2;n1=n1.next;n2=n2.next;n++;
 				}
 			}
 			else if(n1==null&&n2!=null) {
-				a[n][0]=n2.data1;a[n][1]=n2.data2;n2=n2.next;n++;
+				a[n][0]=(Integer)n2.data1;a[n][1]=(Integer)n2.data2;n2=n2.next;n++;
 			}
 			else {
-				a[n][0]=n1.data1;a[n][1]=n1.data2;n1=n1.next;n++;
+				a[n][0]=(Integer)n1.data1;a[n][1]=(Integer)n1.data2;n1=n1.next;n++;
 			}
 		}
 		for(int i=0;i<n;i++) {
@@ -401,7 +401,7 @@ public int [][] multiply(char poly1,char poly2){
 		SingleLinkedNode n1=list1.head;SingleLinkedNode n2=list2.head;
 		while(n1!=null) {
 			while(n2!=null) {
-				a[n][0]=n1.data1*n2.data1;a[n][1]=n1.data2+n2.data2;n++;n2=n2.next;
+				a[n][0]=(Integer)n1.data1*(Integer)n2.data1;a[n][1]=(Integer)n1.data2+(Integer)n2.data2;n++;n2=n2.next;
 			}
 			n1=n1.next;n2=list2.head;
 		}
@@ -425,7 +425,7 @@ public int [][] multiply(char poly1,char poly2){
 		n1=list1.head;n2=list3.head;n=0;
 		while(n1!=null) {
 			while(n2!=null) {
-				a[n][0]=n1.data1*n2.data1;a[n][1]=n1.data2+n2.data2;n++;n2=n2.next;
+				a[n][0]=(Integer)n1.data1*(Integer)n2.data1;a[n][1]=(Integer)n1.data2+(Integer)n2.data2;n++;n2=n2.next;
 			}
 			n1=n1.next;n2=list3.head;
 		}
@@ -449,7 +449,7 @@ public int [][] multiply(char poly1,char poly2){
 		n1=list2.head;n2=list3.head;n=0;
 		while(n1!=null) {
 			while(n2!=null) {
-				a[n][0]=n1.data1*n2.data1;a[n][1]=n1.data2+n2.data2;n++;n2=n2.next;
+				a[n][0]=(Integer)n1.data1*(Integer)n2.data1;a[n][1]=(Integer)n1.data2+(Integer)n2.data2;n++;n2=n2.next;
 			}
 			n1=n1.next;n2=list3.head;
 		}
@@ -473,4 +473,3 @@ public int [][] multiply(char poly1,char poly2){
 	return a;
 }
 }
-

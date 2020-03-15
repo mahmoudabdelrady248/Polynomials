@@ -8,7 +8,7 @@ public class MainOfSingleLinkedList {
 	    	list.set(2 ,new Object(7,null));
 	    	list.show();System.out.println("Value at 2 index will be:"+list.get(0).data1);
 	    	list.sublist(1,2);
-	    	System.out.println("value is found??:"+list.contain(new Object(4,null)));
+	    	System.out.println("value is found??:"+list.contains(new Object(4,null)));
 	    	System.out.println("size will be:"+list.size());
 	    	System.out.println("Is list is Empty??:"+list.isEmpty());
 	    	list.clear();

@@ -58,7 +58,7 @@ public class MainOfApplication {
     	case 7:
     		System.out.println("Insert the variable name: A, B, C OR R");
     		char poly10=input.next().charAt(0);
-    		polynomial.clear(poly10);break;
+    		polynomial.clearPolynomial(poly10);break;
         }
     	
     	}

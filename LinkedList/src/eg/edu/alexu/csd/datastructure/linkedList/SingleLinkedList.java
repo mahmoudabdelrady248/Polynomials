@@ -1,5 +1,5 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
-public class SingleLinkedList {
+public class SingleLinkedList implements ILinkedList{
 SingleLinkedNode head,headILinkedList;
 public void add(int index,Object element) {
 	SingleLinkedNode node=new SingleLinkedNode();
@@ -71,14 +71,14 @@ public int size() {
 	return size;
 }
 public ILinkedList sublist(int fromIndex,int toIndex) {
-	SingleLinkedNode n=head;ILinkedList list=new ILinkedList();
+	SingleLinkedNode n=head;
 	for(int i=0;i<fromIndex;i++) n=n.next;
 	for(int i=fromIndex;i<=toIndex;i++) {
-		ILinkedList(new Object(n.data1,n.data2));n=n.next;
+		System.out.println(n.data1);n=n.next;
 	}
-	return list;
+	return null;
 }
-public boolean contain(Object o) {
+public boolean contains(Object o) {
 	SingleLinkedNode tail=head;
 	while(tail!=null) {
 		if(tail.data1==o.data1) return true;
@@ -86,11 +86,7 @@ public boolean contain(Object o) {
 	}
 	return false;
 }
-public void ILinkedList(Object element) {
-	SingleLinkedNode node=new SingleLinkedNode();
-	node.data1=element.data1;node.data2=element.data2;
-	System.out.println(node.data1);
-}
+
 public void show() {
 	SingleLinkedNode node=head;
 	while(node.next!=null) {
