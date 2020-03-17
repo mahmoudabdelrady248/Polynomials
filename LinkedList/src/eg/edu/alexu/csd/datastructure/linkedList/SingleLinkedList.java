@@ -1,6 +1,10 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
 public class SingleLinkedList implements ILinkedList{
-SingleLinkedNode head,headILinkedList;
+	class SingleLinkedNode{
+		Integer data1,data2;
+		SingleLinkedNode next;
+	}
+SingleLinkedNode head,ILinkedhead;
 public void add(int index,Object element) {
 	SingleLinkedNode node=new SingleLinkedNode();
 	node.data1=element.data1;node.data2=element.data2;
@@ -25,7 +29,7 @@ public void add(Object element) {
 	}
 }
 public Object get(int index) {
-	SingleLinkedNode node=head;Object element = new Object(node.data1,node.data2);
+	SingleLinkedNode node=head;Object element=new Object(node.data1,node.data2);
 	for(int i=0;i<index;i++) node=node.next;
 	element.data1=node.data1;element.data2=node.data2;
 	return element;
@@ -71,17 +75,87 @@ public int size() {
 	return size;
 }
 public ILinkedList sublist(int fromIndex,int toIndex) {
-	SingleLinkedNode n=head;
-	for(int i=0;i<fromIndex;i++) n=n.next;
+	SingleLinkedNode n=head;ILinkedList list=new ILinkedList() {
+		@Override
+		public ILinkedList sublist(int fromIndex, int toIndex) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public int size() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		@Override
+		public void set(int index, Object element) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void remove(int index) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean isEmpty() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public Object get(int index) {
+			SingleLinkedNode node=ILinkedhead;Object element=new Object(node.data1,node.data2);
+			for(int i=0;i<index;i++) node=node.next;
+			element.data1=node.data1;element.data2=node.data2;
+			return element;
+			
+		}
+		
+		@Override
+		public boolean contains(Object o) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public void clear() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void add(Object element) {
+			SingleLinkedNode n=new SingleLinkedNode();
+			n.data1=element.data1;n.data2=element.data2;
+			if(ILinkedhead==null) ILinkedhead=n;
+			else {
+				SingleLinkedNode m=ILinkedhead;
+				while(m.next!=null) m=m.next;
+				m.next=n;;
+			}
+			
+		}
+		
+		@Override
+		public void add(int index, Object element) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+for(int i=0;i<fromIndex;i++) n=n.next;
 	for(int i=fromIndex;i<=toIndex;i++) {
-		System.out.println(n.data1);n=n.next;
+		list.add(get(i));
 	}
-	return null;
+  return list;
 }
 public boolean contains(Object o) {
 	SingleLinkedNode tail=head;
 	while(tail!=null) {
-		if(tail.data1==o.data1) return true;
+		if(tail.data1==o.data1&&tail.data2==o.data2) return true;
 		else tail=tail.next;
 	}
 	return false;
@@ -92,7 +166,9 @@ public void show() {
 	while(node.next!=null) {
 		System.out.println(node.data1);
 		node=node.next;
+		
 	}
 	System.out.println(node.data1);
+	
 }
 }

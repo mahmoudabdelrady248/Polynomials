@@ -1,10 +1,55 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
 import java.lang.Math;
+import eg.edu.alexu.csd.datastructure.linkedList.SingleLinkedList.SingleLinkedNode;
 public class PolynomialApplication implements IPolynomialSolver {
 SingleLinkedList list1=new SingleLinkedList();
 SingleLinkedList list2=new SingleLinkedList();
 SingleLinkedList list3=new SingleLinkedList();
 SingleLinkedList list4=new SingleLinkedList();
+public void FromArrayToList(char poly,int [][]terms) {
+  switch(poly) {
+	case 'A':
+		int [][]terms1=terms;
+		for(int i=0;i<terms1.length;i++) {
+			list1.add(new Object(terms1[i][0],terms1[i][1]));
+		}break;
+	case 'B':
+		int [][]terms2=terms;
+		for(int i=0;i<terms2.length;i++) list2.add(new Object(terms2[i][0],terms2[i][1]));break;
+	case 'C':
+		int [][]terms3=terms;
+		for(int i=0;i<terms3.length;i++) list3.add(new Object(terms3[i][0],terms3[i][1]));break;
+	
+			
+	}
+}
+public int[][] FromListToArray(char poly){
+	switch(poly) {
+	case 'A':
+		int [][]terms1=new int [2][2];
+		Object element1=new Object(null, null);
+		for(int i=0;i<list1.size();i++) {
+			element1=list1.get(i);
+			terms1[i][0]=element1.data1;terms1[i][1]=element1.data2;
+			}return terms1;
+		
+	case 'B':
+		int [][]terms2=new int [2][2];
+		Object element2=new Object(null, null);
+		for(int i=0;i<list2.size();i++) {
+			element2=list2.get(i);
+			terms2[i][0]=element2.data1;terms2[i][1]=element2.data2;
+			}return terms2;
+	case 'C':
+		int [][]terms3=new int [2][2];
+		Object element3=new Object(null, null);
+		for(int i=0;i<list3.size();i++) {
+			element3=list3.get(i);
+			terms3[i][0]=element3.data1;terms3[i][1]=element3.data2;
+			}return terms3;
+	}
+	return null;
+}
 public void setPolynomial(char poly,int [][]terms) {
 	switch(poly) {
 	case 'A':
@@ -17,11 +62,7 @@ public void setPolynomial(char poly,int [][]terms) {
 				}
 			}
 		}
-   	 for(int i=0;i<terms.length;i++) {
-   		 list1.add(new Object(terms[i][0],terms[i][1]));
-   		 
-   	 }
-   	break;
+   	FromArrayToList('A',terms);break;
 	case 'B':
 		for(int i=0;i<terms.length-1;i++) {
 			for(int j=0;j<2;j++) {
@@ -32,9 +73,7 @@ public void setPolynomial(char poly,int [][]terms) {
 					}
 				}
 			}
-	   	 for(int i=0;i<terms.length;i++) 
-	   		 list2.add(new Object(terms[i][0],terms[i][1]));
-	   		 break;
+	    FromArrayToList('B',terms);break;
 	case 'C':
 		for(int i=0;i<terms.length-1;i++) {
 			for(int j=0;j<2;j++) {
@@ -45,19 +84,16 @@ public void setPolynomial(char poly,int [][]terms) {
 					}
 				}
 			}
-	   	 for(int i=0;i<terms.length;i++) 
-	   		list3.add(new Object(terms[i][0],terms[i][1]));
-	   		  break;
+	   	FromArrayToList('C',terms);break;
 	}
-	}
-
+}
 public String print(char poly) {
 	switch(poly) {
 	case 'A':
 		try {
 			SingleLinkedNode n1=list1.head;
 			while(n1.next!=null) {
-			if((Integer)n1.data1==0) n1=n1.next;	
+			if(n1.data1==0) n1=n1.next;	
 			else if((Integer)n1.data2==0) {
 					System.out.printf("s",n1.data1+"");
 					if((Integer)n1.next.data1>0) {System.out.printf(" +");n1=n1.next;}
@@ -334,9 +370,7 @@ public int [][]subtract(char poly1,char poly2){
 		for(int i=0;i<n;i++) {
 			list4.add(new Object(a[i][0],a[i][1]));
 		}break;
-		
 		case 'A'&'C':
-		if(poly1=='A'&&poly2=='C') {
 		n1=list1.head;n2=list3.head;n=0;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
@@ -361,9 +395,8 @@ public int [][]subtract(char poly1,char poly2){
 		}
 		for(int i=0;i<n;i++) {
 			list4.add(new Object(a[i][0],a[i][1]));
-		}break;}
-		
-	case 'B'&'C':
+		}break;
+        case 'B'&'C':
 		n1=list2.head;n2=list3.head;n=0;
 		while(n1!=null||n2!=null) {
 			if(n1!=null&&n2!=null) {
@@ -389,7 +422,6 @@ public int [][]subtract(char poly1,char poly2){
 		for(int i=0;i<n;i++) {
 			list4.add(new Object(a[i][0],a[i][1]));
 		}break;
-		
 		}
 		
 	return a;
@@ -420,7 +452,9 @@ public int [][] multiply(char poly1,char poly2){
 				}
 			}
 		}
-		for(int i=0;i<n;i++) list4.add(new Object(a[i][0],a[i][1]));break;
+		for(int i=0;i<n;i++) {
+			list4.add(new Object(a[i][0],a[i][1]));
+		}break;
 	case 'A'&'C':
 		n1=list1.head;n2=list3.head;n=0;
 		while(n1!=null) {
@@ -444,7 +478,9 @@ public int [][] multiply(char poly1,char poly2){
 				}
 			}
 		}
-		for(int i=0;i<n;i++) list4.add(new Object(a[i][0],a[i][1]));break;
+		for(int i=0;i<n;i++) {
+			list4.add(new Object(a[i][0],a[i][1]));
+		}break;
 	case 'B'&'C':
 		n1=list2.head;n2=list3.head;n=0;
 		while(n1!=null) {
@@ -468,7 +504,9 @@ public int [][] multiply(char poly1,char poly2){
 				}
 			}
 		}
-		for(int i=0;i<n;i++) list4.add(new Object(a[i][0],a[i][1]));break;
+		for(int i=0;i<n;i++) {
+			list4.add(new Object(a[i][0],a[i][1]));
+		}break;
 		}
 	return a;
 }

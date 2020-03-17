@@ -1,6 +1,9 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
 public class DoubleLinkedList implements ILinkedList{
-	DoubleLinkedNode head,tail,headILinkedList,tailILinkedlist;
+	class DoubleLinkedNode{
+		Integer data1,data2;DoubleLinkedNode nextnode,previousnode;
+	}
+	DoubleLinkedNode head,tail,ILinkedhead,ILinkedtail;
 	public void add(int index,Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
 		node.data1=element.data1;node.data2=element.data2;DoubleLinkedNode n=head;
@@ -28,7 +31,7 @@ public class DoubleLinkedList implements ILinkedList{
 		}
 	}
 	public Object get(int index) {
-		DoubleLinkedNode node=head;Object element = new Object(node.data1,node.data2);
+		DoubleLinkedNode node=head;Object element=new Object(node.data1,node.data2);
 		for(int i=0;i<index;i++) node=node.nextnode;
 		element.data1=node.data1;element.data2=node.data2;
 		return element;
@@ -82,17 +85,84 @@ public class DoubleLinkedList implements ILinkedList{
 		return size;
 	}
 	public ILinkedList sublist(int fromIndex,int toIndex) {
-		DoubleLinkedNode n=head;
+		DoubleLinkedNode n=head;ILinkedList list=new ILinkedList() {
+			@Override
+			public ILinkedList sublist(int fromIndex, int toIndex) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public int size() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public void set(int index, Object element) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void remove(int index) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public boolean isEmpty() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public Object get(int index) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public boolean contains(Object o) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public void clear() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void add(Object element) {
+			  DoubleLinkedNode node=new DoubleLinkedNode();
+			  node.data1=element.data1;node.data2=element.data2;
+			  if(ILinkedhead==null) {ILinkedhead=node;ILinkedtail=node;}
+			  else {
+				  while(ILinkedtail.nextnode!=null) ILinkedtail=ILinkedtail.nextnode;
+				  ILinkedtail.nextnode=node;node.previousnode=ILinkedtail;
+				  ILinkedtail=node;
+			  }
+				
+			}
+			
+			@Override
+			public void add(int index, Object element) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 		for(int i=0;i<fromIndex;i++) n=n.nextnode;
 		for(int i=fromIndex;i<=toIndex;i++) {
-			System.out.println(n.data1);n=n.nextnode;
+			list.add(get(i));
 		}
-		return null;
+		;return list;
 	}
 	public boolean contains(Object o) {
 		DoubleLinkedNode n=head;
 		while(n!=null) {
-			if(n.data1==o.data1) return true;
+			if(n.data1==o.data1&&n.data2==o.data2) return true;
 			else n=n.nextnode;
 		}
 		return false;
