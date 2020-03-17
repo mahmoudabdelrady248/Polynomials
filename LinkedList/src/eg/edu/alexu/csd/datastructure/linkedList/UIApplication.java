@@ -19,15 +19,23 @@ public class UIApplication {
 	    		System.out.println("Insert the variable name: A, B or C");
 	    		char poly1=input.next().charAt(0);
 	    		System.out.printf("Insert the polynomial terms in the form:\n(coeff1,exponent1),(coeff2,exponent2),...\n");
-	    		String b=input.next();
+	    		Scanner ss=new Scanner(System.in);
+	    	    String b=ss.nextLine();String []x=b.trim().split("\\s+");
+	    	    String c="";for(int i=0;i<x.length;i++) {c+=x[i];}
+	    	    String []v1=c.split(",");int[][] u=new int[v1.length/2][2];int r=0;
+	    	    for(int i=0;i<v1.length/2;i++) {
+	    	 	for(int j=0;j<2;j++) {
+	    	 		u[i][j]=Integer.parseInt(v1[r++].replaceAll("\\D+",""));}
+	    	 	}
+	    		polynomial.setPolynomial(poly1,u);break;
+	    		/*String b=input.next();
 	    		String []v=b.split(",");int [][]u=new int [v.length/2][2];int r=0;
 	    		for(int i=0;i<v.length/2;i++) {
 	    			for(int j=0;j<2;j++) {
 	    				u[i][j]=Integer.parseInt(v[r].replaceAll("\\D+",""));r++;
 	    			}
-	    		}
-	    		polynomial.setPolynomial(poly1,u);break;
-	    	case 2:
+	    		}*/
+	    		case 2:
 	    		System.out.println("Insert the variable name: A, B, C OR R");
 	    		char poly2=input.next().charAt(0);
 	    		polynomial.print(poly2);break;
