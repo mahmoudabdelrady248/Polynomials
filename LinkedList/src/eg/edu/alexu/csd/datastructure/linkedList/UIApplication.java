@@ -1,9 +1,10 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
+import java.awt.Point;
 import java.util.Scanner;
 public class UIApplication {
 	  public static void main(String []args) {
 	    	Scanner input=new Scanner(System.in);
-	    	PolynomialApplication polynomial=new PolynomialApplication();
+	        PolynomialSolver s=new PolynomialSolver();
 	    	while(true) {
 	    	System.out.println("please choose an action:");
 	    	System.out.println("1_ Set a polynomial variable");
@@ -23,51 +24,45 @@ public class UIApplication {
 	    	    String b=ss.nextLine();String []x=b.trim().split("\\s+");
 	    	    String c="";for(int i=0;i<x.length;i++) {c+=x[i];}
 	    	    String []v1=c.split(",");int[][] u=new int[v1.length/2][2];int r=0;
-	    	    for(int i=0;i<v1.length/2;i++) {
-	    	 	for(int j=0;j<2;j++) {
-	    	 		u[i][j]=Integer.parseInt(v1[r++].replaceAll("\\D+",""));}
-	    	 	}
-	    		polynomial.setPolynomial(poly1,u);break;
-	    		/*String b=input.next();
-	    		String []v=b.split(",");int [][]u=new int [v.length/2][2];int r=0;
-	    		for(int i=0;i<v.length/2;i++) {
-	    			for(int j=0;j<2;j++) {
-	    				u[i][j]=Integer.parseInt(v[r].replaceAll("\\D+",""));r++;
-	    			}
-	    		}*/
+	    	    for(int i=0;i<v1.length;i++) {v1[i]=v1[i].replaceAll("[()]", "");
+	    	    v1[i]=v1[i].replaceAll("\\s+", "");}
+	    	 for(int i=0;i<v1.length/2;i++) {
+	    	 	for(int j=0;j<2;j++) {u[i][j]=Integer.parseInt(v1[r++]);	
+	    	 		}}
+               s.setPolynomial(poly1,u);break;
 	    		case 2:
 	    		System.out.println("Insert the variable name: A, B, C OR R");
 	    		char poly2=input.next().charAt(0);
-	    		polynomial.print(poly2);break;
-	    		
-	    	case 3:
+	    		s.print(poly2);break;
+	    		case 3:
 	    		System.out.println("Insert first operand variable name:A ,B or c");
 	    		char poly3=input.next().charAt(0); 
 	    		System.out.println("Insert second operand variable name:A ,B or c");
 	    		char poly4=input.next().charAt(0); 
-	    		polynomial.add(poly3, poly4);break;
+	    		s.add(poly3, poly4);break;
 	    	case 4:
 	    		System.out.println("Insert first operand variable name:A ,B or c");
 	    		char poly5=input.next().charAt(0); 
 	    		System.out.println("Insert second operand variable name:A ,B or c");
 	    		char poly6=input.next().charAt(0); 
-	    		polynomial.subtract(poly5, poly6);break;
+	    		s.subtract(poly5, poly6);break;
 	    	case 5:
 	    		System.out.println("Insert first operand variable name:A ,B or c");
 	    		char poly7=input.next().charAt(0); 
 	    		System.out.println("Insert second operand variable name:A ,B or c");
 	    		char poly8=input.next().charAt(0); 
-	    		polynomial.multiply(poly7, poly8);break;
+	    		s.multiply(poly7, poly8);break;
 	    	case 6:	
 	    		System.out.println("Insert the variable name: A, B, C OR R");
 	    		char poly9=input.next().charAt(0);
 	    		System.out.println("Enter value you want");
 	    		float value=input.nextFloat();
-	    	   System.out.println("value will be:"+polynomial.evaluatePolynomial(poly9, value));break;
+	    	    System.out.println(s.evaluatePolynomial(poly9, value));
 	    	case 7:
 	    		System.out.println("Insert the variable name: A, B, C OR R");
 	    		char poly10=input.next().charAt(0);
-	    		polynomial.clearPolynomial(poly10);break;
+	    		s.clearPolynomial(poly10);
+	    		
 	        }
 	    	
 	    	}

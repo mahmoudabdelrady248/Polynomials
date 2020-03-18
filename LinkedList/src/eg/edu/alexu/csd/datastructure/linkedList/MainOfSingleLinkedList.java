@@ -3,15 +3,15 @@ import eg.edu.alexu.csd.datastructure.linkedList.SingleLinkedList.SingleLinkedNo
 public class MainOfSingleLinkedList {
 	public static void main(String[]args) {
 		SingleLinkedList list=new SingleLinkedList();
-		list.add(new Object(4,null));
-		list.add(new Object(5,null));
-		list.add(new Object(6,null));
-		list.set(2 ,new Object(7,null));
-		list.show();System.out.println("Value at 2 index will be:"+list.get(0).data1);
+		list.add(4);
+		list.add(5);
+		list.add(6);
+		list.set(2 ,7);
+		list.show();System.out.println("Value at 0 index will be:"+list.get(0));
 		list.sublist(1,2);
 		SingleLinkedNode n=list.ILinkedhead;
-		while(n.next!=null) {System.out.println(n.data1);n=n.next;}System.out.println(n.data1);
-		System.out.println("value is found??:"+list.contains(new Object(4,null)));
+		while(n.next!=null) {System.out.println(n.data);n=n.next;}System.out.println(n.data);
+		System.out.println("value is found??:"+list.contains(4));
 		System.out.println("size will be:"+list.size());
 		System.out.println("Is list is Empty??:"+list.isEmpty());
 		list.clear();

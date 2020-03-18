@@ -1,12 +1,12 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
 public class DoubleLinkedList implements ILinkedList{
 	class DoubleLinkedNode{
-		Integer data1,data2;DoubleLinkedNode nextnode,previousnode;
+		Object data;DoubleLinkedNode nextnode,previousnode;
 	}
 	DoubleLinkedNode head,tail,ILinkedhead,ILinkedtail;
 	public void add(int index,Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
-		node.data1=element.data1;node.data2=element.data2;DoubleLinkedNode n=head;
+		node.data=element;DoubleLinkedNode n=head;
 		int position=size();
 		if(index==0) {
 			node.nextnode=head;head.previousnode=node;head=node;
@@ -23,7 +23,7 @@ public class DoubleLinkedList implements ILinkedList{
 	}
 	public void add(Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
-		node.data1=element.data1;node.data2=element.data2;
+		node.data=element;
 		if(head==null) { head=node;tail=node;}
 		else {
 			  while(tail.nextnode!=null) tail=tail.nextnode;
@@ -31,14 +31,14 @@ public class DoubleLinkedList implements ILinkedList{
 		}
 	}
 	public Object get(int index) {
-		DoubleLinkedNode node=head;Object element=new Object(node.data1,node.data2);
+		DoubleLinkedNode node=head;Object element;
 		for(int i=0;i<index;i++) node=node.nextnode;
-		element.data1=node.data1;element.data2=node.data2;
+		element=node.data;
 		return element;
 	}
 	public void set(int index,Object element) {
 		DoubleLinkedNode node=new DoubleLinkedNode();
-		node.data1=element.data1;node.data2=element.data2;
+		node.data=element;
 		DoubleLinkedNode n=head;int position=size()-1;
 		if(index==0) {
 			DoubleLinkedNode k=head.nextnode;
@@ -137,7 +137,7 @@ public class DoubleLinkedList implements ILinkedList{
 			@Override
 			public void add(Object element) {
 			  DoubleLinkedNode node=new DoubleLinkedNode();
-			  node.data1=element.data1;node.data2=element.data2;
+			  node.data=element;
 			  if(ILinkedhead==null) {ILinkedhead=node;ILinkedtail=node;}
 			  else {
 				  while(ILinkedtail.nextnode!=null) ILinkedtail=ILinkedtail.nextnode;
@@ -162,7 +162,7 @@ public class DoubleLinkedList implements ILinkedList{
 	public boolean contains(Object o) {
 		DoubleLinkedNode n=head;
 		while(n!=null) {
-			if(n.data1==o.data1&&n.data2==o.data2) return true;
+			if(n.data==o) return true;
 			else n=n.nextnode;
 		}
 		return false;
@@ -170,9 +170,9 @@ public class DoubleLinkedList implements ILinkedList{
 	public void show() {
 		DoubleLinkedNode node=head;
 		while(node.nextnode!=null) {
-			System.out.println(node.data1);
+			System.out.println(node.data);
 			node=node.nextnode;
 		}
-		System.out.println(node.data1);
+		System.out.println(node.data);
 	}
 }
