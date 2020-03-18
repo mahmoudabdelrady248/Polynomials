@@ -57,11 +57,11 @@ public class UIApplication {
 	    		char poly9=input.next().charAt(0);
 	    		System.out.println("Enter value you want");
 	    		float value=input.nextFloat();
-	    	    System.out.println(s.evaluatePolynomial(poly9, value));
+	    	    System.out.println(s.evaluatePolynomial(poly9, value));break;
 	    	case 7:
 	    		System.out.println("Insert the variable name: A, B, C OR R");
 	    		char poly10=input.next().charAt(0);
-	    		s.clearPolynomial(poly10);
+	    		s.clearPolynomial(poly10);break;
 	    		
 	        }
 	    	
