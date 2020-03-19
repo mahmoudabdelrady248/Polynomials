@@ -15,7 +15,6 @@ public class UIApplication {
 	    	Scanner input=new Scanner(System.in);
 	    	int num=input.nextInt();
 	    	switch (num) {
-	    	
 	    	case 1:
 	    		System.out.println("Insert the variable name: A, B or C");
 	    		char poly1=input.next().charAt(0);
@@ -39,19 +38,38 @@ public class UIApplication {
 	    		char poly3=input.next().charAt(0); 
 	    		System.out.println("Insert second operand variable name:A ,B or c");
 	    		char poly4=input.next().charAt(0); 
-	    		s.add(poly3, poly4);break;
+	    		int [][]a1=s.add(poly3, poly4);String str1=new String();
+	    		s.setPolynomial('R', a1);
+	    		for(int i=0;i<a1.length;i++) {str1+="(";str1+=a1[i][0];str1+=",";str1+=a1[i][1];str1+=")";
+	    		if(i==a1.length-1) {}
+	    		else {str1+=",";}
+	    		}
+	    		System.out.println("Result set in R is : "+ str1);
+	    		break;
 	    	case 4:
 	    		System.out.println("Insert first operand variable name:A ,B or c");
 	    		char poly5=input.next().charAt(0); 
 	    		System.out.println("Insert second operand variable name:A ,B or c");
 	    		char poly6=input.next().charAt(0); 
-	    		s.subtract(poly5, poly6);break;
+	    		int [][]a2=s.subtract(poly5, poly6);String str2=new String();
+	    		s.setPolynomial('R', a2);
+	    		for(int i=0;i<a2.length;i++) {str2+="(";str2+=a2[i][0];str2+=",";str2+=a2[i][1];str2+=")";
+	    		if(i==a2.length-1) {}
+	    		else {str2+=",";}
+	    		}
+	    		System.out.println("Result set in R is : "+ str2);break;
 	    	case 5:
 	    		System.out.println("Insert first operand variable name:A ,B or c");
 	    		char poly7=input.next().charAt(0); 
 	    		System.out.println("Insert second operand variable name:A ,B or c");
 	    		char poly8=input.next().charAt(0); 
-	    		s.multiply(poly7, poly8);break;
+	    		int [][]a3=s.multiply(poly7, poly8);String str3=new String();
+	    		s.setPolynomial('R', a3);
+	    		for(int i=0;i<a3.length;i++) {str3+="(";str3+=a3[i][0];str3+=",";str3+=a3[i][1];str3+=")";
+	    		if(i==a3.length-1) {}
+	    		else {str3+=",";}
+	    		}
+	    		System.out.println("Result set in R is : "+ str3);break;
 	    	case 6:	
 	    		System.out.println("Insert the variable name: A, B, C OR R");
 	    		char poly9=input.next().charAt(0);
