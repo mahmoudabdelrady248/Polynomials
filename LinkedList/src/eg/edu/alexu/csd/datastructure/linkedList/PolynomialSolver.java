@@ -647,8 +647,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 		}
 		return null;}
     public int [][] multiply(char poly1,char poly2){
-    	switch(poly1&poly2) {
-    	case 'A'&'B':
+    	if(poly1=='A'&&poly2=='B'||poly1=='B'&&poly2=='A') {
     		int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('B');
     		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
     		for(int i=0;i<terms1.length;i++) {
@@ -665,10 +664,10 @@ public class PolynomialSolver implements IPolynomialSolver {
     				}
     			} 
     		}
-    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));break;
-        case 'B'&'C':
-        	terms1=FromListToArray('B');terms2=FromListToArray('C');
-    		terms3=new int [terms1.length*terms2.length][2];n=0;
+    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));}
+    	else if(poly1=='B'&&poly2=='C'||poly1=='C'&&poly2=='B') {
+        	int [][]terms1=FromListToArray('B');int [][]terms2=FromListToArray('C');
+    		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
     		for(int i=0;i<terms1.length;i++) {
     			for(int j=0;j<terms2.length;j++) {
     				terms3[n][0]=terms1[i][0]*terms2[j][0];
@@ -683,10 +682,10 @@ public class PolynomialSolver implements IPolynomialSolver {
     				}
     			} 
     		}
-    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));break;
-    	case 'A'&'C':
-    		terms1=FromListToArray('A');terms2=FromListToArray('C');
-    		terms3=new int [terms1.length*terms2.length][2];n=0;
+    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));}
+    	else if(poly1== 'A'&&poly2=='C'||poly1=='C'&&poly2=='A') {
+    		int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('C');
+    		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
     		for(int i=0;i<terms1.length;i++) {
     			for(int j=0;j<terms2.length;j++) {
     				terms3[n][0]=terms1[i][0]*terms2[j][0];
@@ -701,9 +700,9 @@ public class PolynomialSolver implements IPolynomialSolver {
     				}
     			} 
     		}
-    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));break;
-    	}
-    	if(poly1=='A'&&poly2=='A') {
+    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));}
+    	
+    	else if(poly1=='A'&&poly2=='A') {
     		int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('A');
     		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
     		for(int i=0;i<terms1.length;i++) {
