@@ -35,29 +35,60 @@ public class PolynomialSolver implements IPolynomialSolver {
 			int [][]terms1=new int [list1.size()][2];int i1=0;
 			while(n1!=null){
 			polynomial x=(polynomial)n1.data;
-			terms1[i1][0]=x.coeff;terms1[i1][1]=x.exponent;n1=n1.next;i1++;}
+			if(x.coeff==0) {i1++;n1=n1.next;}
+			else{terms1[i1][0]=x.coeff;terms1[i1][1]=x.exponent;n1=n1.next;i1++;}}
 			return terms1;
 		case 'B':
 			SingleLinkedNode n2=list2.head;
 			int [][]terms2=new int [list2.size()][2];int i2=0;
 			while(n2!=null){
 			polynomial x=(polynomial)n2.data;
-			terms2[i2][0]=x.coeff;terms2[i2][1]=x.exponent;n2=n2.next;i2++;}
+			if(x.coeff==0) {i2++;n2=n2.next;}
+			else{terms2[i2][0]=x.coeff;terms2[i2][1]=x.exponent;n2=n2.next;i2++;}}
 			return terms2;
 		case 'C':
 			SingleLinkedNode n3=list3.head;
 			int [][]terms3=new int [list3.size()][2];int i3=0;
 			while(n3!=null){
 			polynomial x=(polynomial)n3.data;
-			terms3[i3][0]=x.coeff;terms3[i3][1]=x.exponent;n3=n3.next;i3++;}
+			if(x.coeff==0) {i3++;n3=n3.next;}
+			else{terms3[i3][0]=x.coeff;terms3[i3][1]=x.exponent;n3=n3.next;i3++;}}
 			return terms3;
 		case 'R':
 			SingleLinkedNode n4=list4.head;
 			int [][]terms4=new int [list4.size()][2];int i4=0;
 			while(n4!=null){
 			polynomial x=(polynomial)n4.data;
-			terms4[i4][0]=x.coeff;terms4[i4][1]=x.exponent;n4=n4.next;i4++;}
-			return terms4;
+			if(x.coeff==0) {i4++;n4=n4.next;}
+			else{terms4[i4][0]=x.coeff;terms4[i4][1]=x.exponent;n4=n4.next;i4++;}}
+			for(int i=0;i<terms4.length-1;i++) {
+				for(int j=i+1;j<terms4.length;j++) {
+					if(terms4[i][1]<terms4[j][1]) {
+						int temp=terms4[i][0];
+						terms4[i][0]=terms4[j][0];
+						terms4[j][0]=temp;
+						temp=terms4[i][1];
+						terms4[i][1]=terms4[j][1];
+						terms4[j][1]=temp;
+						}
+					}
+				}
+			for(int i=0;i<terms4.length-1;i++) {
+    			for(int j=i+1;j<terms4.length;j++) {
+    				if(terms4[i][1]==terms4[j][1]) {
+    					terms4[i][0]=terms4[i][0]+terms4[j][0];
+    					terms4[j][0]=0;terms4[j][1]=0;
+    				}
+    			} 
+    		}int n=terms4.length;int [][]terms5=new int [terms4.length][2];
+    		for(int i=0;i<n;i++) {
+    		if(terms4[i][0]==0) n--;
+    		else {terms5[i][0]=terms4[i][0];terms5[i][1]=terms4[i][1];}
+    		}int [][]terms6=new int [n][2];
+    		for(int i=0;i<n;i++) {
+    			for(int j=0;j<2;j++) terms6[i][j]=terms5[i][j];
+    		}
+			return terms6;
 		}return null;
 	}
 	public void setPolynomial(char poly,int [][]terms) {
@@ -116,7 +147,22 @@ public class PolynomialSolver implements IPolynomialSolver {
 					if(terms[i][0]==0) i++;
 					else if(terms[i][1]==0) {
 						System.out.printf("%s",terms[i][0]+"");
-						if(terms[i+1][0]>0) System.out.printf(" +");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==1&&terms[i][1]==1) {
+						System.out.printf("x");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==-1&&terms[i][1]==1) {
+						System.out.printf("-x");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						else i++;
+					}
+					else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
+						System.out.printf("%s",terms[i][0]+"x");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==1&&terms[i][1]!=0) {
@@ -131,13 +177,17 @@ public class PolynomialSolver implements IPolynomialSolver {
 					}
 					else {
 						System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) { System.out.printf(" +");i++;}
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
 						else i++;
 					}
 				}
 				if(terms[i][0]==0) i++;
 				else if(terms[i][1]==0) 
 					System.out.printf("%s","x^"+terms[i][0]+"");
+				else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
+				else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
+				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
+					System.out.printf("%s",terms[i][0]+"x");
 				else if(terms[i][0]==1&&terms[i][1]!=0) 
 					System.out.printf("%s","x^"+terms[i][1]+"");
 				else if(terms[i][0]==-1&&terms[i][1]!=0)
@@ -156,13 +206,28 @@ public class PolynomialSolver implements IPolynomialSolver {
 						if(terms[i][0]==0) i++;
 						else if(terms[i][1]==0) {
 							System.out.printf("%s",terms[i][0]+"");
-							if(terms[i+1][0]>0) System.out.printf(" +");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if(terms[i][0]==1&&terms[i][1]==1) {
+							System.out.printf("x");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if(terms[i][0]==-1&&terms[i][1]==1) {
+							System.out.printf("-x");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
+							System.out.printf("%s",terms[i][0]+"x");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
 							else i++;
 						}
 						else if(terms[i][0]==1&&terms[i][1]!=0) {
 							System.out.printf("%s","x^"+terms[i][1]+"");
 							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-						    else i++;
+							else i++;
 						}
 						else if(terms[i][0]==-1&&terms[i][1]!=0) {
 							System.out.printf("%s","-"+"x^"+terms[i][1]+"");
@@ -171,13 +236,17 @@ public class PolynomialSolver implements IPolynomialSolver {
 						}
 						else {
 							System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-							if(terms[i+1][0]>0) { System.out.printf(" +");i++;}
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
 							else i++;
 						}
 					}
 					if(terms[i][0]==0) i++;
 					else if(terms[i][1]==0) 
 						System.out.printf("%s",terms[i][0]+"");
+					else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
+					else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
+					else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
+						System.out.printf("%s",terms[i][0]+"x");
 					else if(terms[i][0]==1&&terms[i][1]!=0) 
 						System.out.printf("%s","x^"+terms[i][1]+"");
 					else if(terms[i][0]==-1&&terms[i][1]!=0)
@@ -196,7 +265,22 @@ public class PolynomialSolver implements IPolynomialSolver {
 					if(terms[i][0]==0) i++;
 					else if(terms[i][1]==0) {
 						System.out.printf("%s",terms[i][0]+"");
-						if(terms[i+1][0]>0) System.out.printf(" +");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==1&&terms[i][1]==1) {
+						System.out.printf("x");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==-1&&terms[i][1]==1) {
+						System.out.printf("-x");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						else i++;
+					}
+					else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
+						System.out.printf("%s",terms[i][0]+"x");
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==1&&terms[i][1]!=0) {
@@ -207,17 +291,21 @@ public class PolynomialSolver implements IPolynomialSolver {
 					else if(terms[i][0]==-1&&terms[i][1]!=0) {
 						System.out.printf("%s","-"+"x^"+terms[i][1]+"");
 						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-				        else i++;
+						else i++;
 					}
 					else {
 						System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) { System.out.printf(" +");i++;}
+						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
 						else i++;
 					}
 				}
 				if(terms[i][0]==0) i++;
 				else if(terms[i][1]==0) 
 					System.out.printf("%s",terms[i][0]+"");
+				else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
+				else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
+				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
+					System.out.printf("%s",terms[i][0]+"x");
 				else if(terms[i][0]==1&&terms[i][1]!=0) 
 					System.out.printf("%s","x^"+terms[i][1]+"");
 				else if(terms[i][0]==-1&&terms[i][1]!=0)
@@ -232,44 +320,51 @@ public class PolynomialSolver implements IPolynomialSolver {
 			try {
 				int i=0;
 				int [][]terms=FromListToArray('R');
-				for(i=0;i<terms.length-1;i++) {
-					for(int j=i+1;j<terms.length;j++) {
-						if(terms[i][1]<terms[j][1]) {
-							int temp=terms[i][0];
-							terms[i][0]=terms[j][0];
-							terms[j][0]=temp;
-							temp=terms[i][1];
-							terms[i][1]=terms[j][1];
-							terms[j][1]=temp;
-							}
-						}
-					}i=0;
 				while(i<terms.length-1) {
-					if(terms[i][0]==0) i++;
-					else if(terms[i][1]==0) {
-						System.out.printf("%s",terms[i][0]+"");
-						if(terms[i+1][0]>0) System.out.printf(" +");
-						else i++;
+						if(terms[i][0]==0) i++;
+						else if(terms[i][1]==0) {
+							System.out.printf("%s",terms[i][0]+"");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if(terms[i][0]==1&&terms[i][1]==1) {
+							System.out.printf("x");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if(terms[i][0]==-1&&terms[i][1]==1) {
+							System.out.printf("-x");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
+							System.out.printf("%s",terms[i][0]+"x");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if(terms[i][0]==1&&terms[i][1]!=0) {
+							System.out.printf("%s","x^"+terms[i][1]+"");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else if(terms[i][0]==-1&&terms[i][1]!=0) {
+							System.out.printf("%s","-"+"x^"+terms[i][1]+"");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
+						else {
+							System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
+							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							else i++;
+						}
 					}
-					else if(terms[i][0]==1&&terms[i][1]!=0) {
-						System.out.printf("%s","x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-						else i++;
-					}
-					else if(terms[i][0]==-1&&terms[i][1]!=0) {
-						System.out.printf("%s","-"+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-						else i++;
-					}
-					else {
-						System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) { System.out.printf(" +");i++;}
-						else i++;
-					}
-				}
 				if(terms[i][0]==0) i++;
 				else if(terms[i][1]==0) 
 					System.out.printf("%s",terms[i][0]+"");
+				else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
+				else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
+				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
+					System.out.printf("%s",terms[i][0]+"x");
 				else if(terms[i][0]==1&&terms[i][1]!=0) 
 					System.out.printf("%s","x^"+terms[i][1]+"");
 				else if(terms[i][0]==-1&&terms[i][1]!=0)
@@ -320,8 +415,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 	}return a;
     }
 	public int [][]add(char poly1,char poly2){
-		switch(poly1&poly2) {
-		case 'A'&'B':
+	if(poly1=='A'&&poly2=='B'||poly1=='A'&&poly2=='B') {
 			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('B');
 			int i=0,j=0;
 		while(i<terms1.length&&j<terms2.length) {
@@ -337,10 +431,10 @@ public class PolynomialSolver implements IPolynomialSolver {
 				list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
-			break;
-			case 'B'&'C':
-				terms1=FromListToArray('B');terms2=FromListToArray('C');
-				i=0;j=0;
+	}
+	else if(poly1=='B'&&poly2=='C'||poly1=='C'&&poly2=='B') {
+				int [][]terms1=FromListToArray('B');int [][]terms2=FromListToArray('C');
+				int i=0,j=0;
 			while(i<terms1.length&&j<terms2.length) {
 					if(terms1[i][1]>terms2[j][1]) { 
 						list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
@@ -354,10 +448,10 @@ public class PolynomialSolver implements IPolynomialSolver {
 					list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
 				while(i<terms1.length&&j==terms2.length) {
 					list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
-				break;
-		case 'A'&'C':
-			terms1=FromListToArray('A');terms2=FromListToArray('C');
-			i=0;j=0;
+	}
+	else if(poly1=='A'&&poly2=='C'||poly1=='C'&&poly2=='A'){
+			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('C');
+			int i=0,j=0;
 		while(i<terms1.length&&j<terms2.length) {
 				if(terms1[i][1]>terms2[j][1]) { 
 					list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
@@ -371,7 +465,57 @@ public class PolynomialSolver implements IPolynomialSolver {
 				list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
-			break;
+	}
+	else if(poly1=='A'&&poly2=='A') {
+			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('A');
+			int i=0,j=0;
+		while(i<terms1.length&&j<terms2.length) {
+				if(terms1[i][1]>terms2[j][1]) { 
+					list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
+				else if(terms1[i][1]<terms2[j][1]) {
+					list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
+				else {
+					int l=terms1[i][0]+terms2[j][0];
+					list4.add(new polynomial(l,terms1[i][1]));i++;j++;}
+			}
+			while(i==terms1.length&&j<terms2.length) {
+				list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
+			while(i<terms1.length&&j==terms2.length) {
+				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
+		}
+		else if(poly1=='B'&&poly2=='B') {
+			int [][]terms1=FromListToArray('B');int [][]terms2=FromListToArray('B');
+			int i=0,j=0;
+		while(i<terms1.length&&j<terms2.length) {
+				if(terms1[i][1]>terms2[j][1]) { 
+					list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
+				else if(terms1[i][1]<terms2[j][1]) {
+					list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
+				else {
+					int l=terms1[i][0]+terms2[j][0];
+					list4.add(new polynomial(l,terms1[i][1]));i++;j++;}
+			}
+			while(i==terms1.length&&j<terms2.length) {
+				list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
+			while(i<terms1.length&&j==terms2.length) {
+				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
+		}
+		else if(poly1=='C'&&poly2=='C') {
+			int [][]terms1=FromListToArray('C');int [][]terms2=FromListToArray('C');
+			int i=0,j=0;
+		while(i<terms1.length&&j<terms2.length) {
+				if(terms1[i][1]>terms2[j][1]) { 
+					list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
+				else if(terms1[i][1]<terms2[j][1]) {
+					list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
+				else {
+					int l=terms1[i][0]+terms2[j][0];
+					list4.add(new polynomial(l,terms1[i][1]));i++;j++;}
+			}
+			while(i==terms1.length&&j<terms2.length) {
+				list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
+			while(i<terms1.length&&j==terms2.length) {
+				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
 		}
 		return null;
 	}
@@ -506,79 +650,116 @@ public class PolynomialSolver implements IPolynomialSolver {
     	switch(poly1&poly2) {
     	case 'A'&'B':
     		int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('B');
-    		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0,l=0;
+    		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
     		for(int i=0;i<terms1.length;i++) {
     			for(int j=0;j<terms2.length;j++) {
     				terms3[n][0]=terms1[i][0]*terms2[j][0];
     				terms3[n][1]=terms1[i][1]+terms2[j][1];n++;
     			}
     		}
-    		for(int i=0;i<n;i++) {
+    		for(int i=0;i<n-1;i++) {
     			for(int j=i+1;j<n;j++) {
     				if(terms3[i][1]==terms3[j][1]) {
-    					l+=terms3[i][0]+terms3[j][0];terms3[i][0]=l;
-    					for(int k=j;k<n-1;k++) {
-    						for(int m=0;m<2;m++) {
-    						int temp=terms3[k][m];
-    						terms3[k][m]=terms3[k+1][m];
-    						terms3[k+1][m]=temp;
-    						}
-    					}
-    					terms3[n-1][0]=0;terms3[n-1][1]=0;n--;
+    					terms3[i][0]=terms3[i][0]+terms3[j][0];
+    					terms3[j][0]=0;terms3[j][1]=0;
     				}
-    			}
+    			} 
     		}
     		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));break;
         case 'B'&'C':
         	terms1=FromListToArray('B');terms2=FromListToArray('C');
-    		terms3=new int [terms1.length*terms2.length][2];n=0;l=0;
+    		terms3=new int [terms1.length*terms2.length][2];n=0;
     		for(int i=0;i<terms1.length;i++) {
     			for(int j=0;j<terms2.length;j++) {
     				terms3[n][0]=terms1[i][0]*terms2[j][0];
     				terms3[n][1]=terms1[i][1]+terms2[j][1];n++;
     			}
     		}
-    		for(int i=0;i<n;i++) {
+    		for(int i=0;i<n-1;i++) {
     			for(int j=i+1;j<n;j++) {
     				if(terms3[i][1]==terms3[j][1]) {
-    					l+=terms3[i][0]+terms3[j][0];terms3[i][0]=l;
-    					for(int k=j;k<n-1;k++) {
-    						for(int m=0;m<2;m++) {
-    						int temp=terms3[k][m];
-    						terms3[k][m]=terms3[k+1][m];
-    						terms3[k+1][m]=temp;
-    						}
-    					}
-    					terms3[n-1][0]=0;terms3[n-1][1]=0;n--;
+    					terms3[i][0]=terms3[i][0]+terms3[j][0];
+    					terms3[j][0]=0;terms3[j][1]=0;
     				}
-    			}
+    			} 
     		}
     		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));break;
     	case 'A'&'C':
     		terms1=FromListToArray('A');terms2=FromListToArray('C');
-    		terms3=new int [terms1.length*terms2.length][2];n=0;l=0;
+    		terms3=new int [terms1.length*terms2.length][2];n=0;
     		for(int i=0;i<terms1.length;i++) {
     			for(int j=0;j<terms2.length;j++) {
     				terms3[n][0]=terms1[i][0]*terms2[j][0];
     				terms3[n][1]=terms1[i][1]+terms2[j][1];n++;
     			}
     		}
-    		for(int i=0;i<n;i++) {
+    		for(int i=0;i<n-1;i++) {
     			for(int j=i+1;j<n;j++) {
     				if(terms3[i][1]==terms3[j][1]) {
-    					l+=terms3[i][0]+terms3[j][0];terms3[i][0]=l;
-    					for(int k=j;k<n-1;k++) {
-    						for(int m=0;m<2;m++) {
-    						int temp=terms3[k][m];
-    						terms3[k][m]=terms3[k+1][m];
-    						terms3[k+1][m]=temp;
-    						}
-    					}
-    					terms3[n-1][0]=0;terms3[n-1][1]=0;n--;
+    					terms3[i][0]=terms3[i][0]+terms3[j][0];
+    					terms3[j][0]=0;terms3[j][1]=0;
     				}
-    			}
+    			} 
     		}
     		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));break;
-    	}return null;
+    	}
+    	if(poly1=='A'&&poly2=='A') {
+    		int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('A');
+    		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
+    		for(int i=0;i<terms1.length;i++) {
+    			for(int j=0;j<terms2.length;j++) {
+    				terms3[n][0]=terms1[i][0]*terms2[j][0];
+    				terms3[n][1]=terms1[i][1]+terms2[j][1];n++;
+    			}
+    		}
+    		for(int i=0;i<n-1;i++) {
+    			for(int j=i+1;j<n;j++) {
+    				if(terms3[i][1]==terms3[j][1]) {
+    					terms3[i][0]=terms3[i][0]+terms3[j][0];
+    					terms3[j][0]=0;terms3[j][1]=0;
+    				}
+    			} 
+    		}
+    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));
+    	}
+    	else if(poly1=='B'&&poly2=='B') {
+    		int [][]terms1=FromListToArray('B');int [][]terms2=FromListToArray('B');
+    		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
+    		for(int i=0;i<terms1.length;i++) {
+    			for(int j=0;j<terms2.length;j++) {
+    				terms3[n][0]=terms1[i][0]*terms2[j][0];
+    				terms3[n][1]=terms1[i][1]+terms2[j][1];n++;
+    			}
+    		}
+    		for(int i=0;i<n-1;i++) {
+    			for(int j=i+1;j<n;j++) {
+    				if(terms3[i][1]==terms3[j][1]) {
+    					terms3[i][0]=terms3[i][0]+terms3[j][0];
+    					terms3[j][0]=0;terms3[j][1]=0;
+    				}
+    			} 
+    		}
+    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));
+    	}
+    	else if(poly1=='C'&&poly2=='C') {
+    		int [][]terms1=FromListToArray('C');int [][]terms2=FromListToArray('C');
+    		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
+    		for(int i=0;i<terms1.length;i++) {
+    			for(int j=0;j<terms2.length;j++) {
+    				terms3[n][0]=terms1[i][0]*terms2[j][0];
+    				terms3[n][1]=terms1[i][1]+terms2[j][1];n++;
+    			}
+    		}
+    		for(int i=0;i<n-1;i++) {
+    			for(int j=i+1;j<n;j++) {
+    				if(terms3[i][1]==terms3[j][1]) {
+    					terms3[i][0]=terms3[i][0]+terms3[j][0];
+    					terms3[j][0]=0;terms3[j][1]=0;
+    				}
+    			} 
+    		}
+    		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));
+    	}
+    	return null;
     }
 }
