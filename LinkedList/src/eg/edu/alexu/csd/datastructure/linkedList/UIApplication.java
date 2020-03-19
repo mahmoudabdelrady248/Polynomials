@@ -1,10 +1,8 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
-import java.awt.Point;
 import java.util.Scanner;
 public class UIApplication {
 	  public static void main(String []args) {
-	    	Scanner input=new Scanner(System.in);
-	        PolynomialSolver s=new PolynomialSolver();
+	    	PolynomialSolver s=new PolynomialSolver();
 	    	while(true) {
 	    	System.out.println("please choose an action:");
 	    	System.out.println("1_ Set a polynomial variable");
@@ -14,8 +12,10 @@ public class UIApplication {
 	    	System.out.println("5_ Multiply two polynomials");
 	    	System.out.println("6_ Evaluate a polynomial variable");
 	    	System.out.println("7_ Clear a polynomial variable");
+	    	Scanner input=new Scanner(System.in);
 	    	int num=input.nextInt();
 	    	switch (num) {
+	    	
 	    	case 1:
 	    		System.out.println("Insert the variable name: A, B or C");
 	    		char poly1=input.next().charAt(0);
