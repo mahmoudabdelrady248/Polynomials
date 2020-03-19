@@ -412,7 +412,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 			a+=terms3[i][0]*Math.pow(value,terms3[i][1]);
 		}break;
 	case 'R':
-		int terms4[][]=FromListToArray('A');
+		int terms4[][]=FromListToArray('R');
 		for(int i=0;i<terms4.length;i++) {
 			a+=terms4[i][0]*Math.pow(value,terms4[i][1]);
 		}break;
