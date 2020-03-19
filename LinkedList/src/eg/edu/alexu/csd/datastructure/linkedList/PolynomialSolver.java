@@ -184,7 +184,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 				}
 				if(terms[i][0]==0) i++;
 				else if(terms[i][1]==0) 
-					System.out.printf("%s","x^"+terms[i][0]+"");
+					System.out.printf("%s",terms[i][0]+"");
 				else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
 				else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
 				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
