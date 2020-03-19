@@ -57,6 +57,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 		case 'R':
 			SingleLinkedNode n4=list4.head;
 			int [][]terms4=new int [list4.size()][2];int i4=0;
+			if(terms4[0][0]==0&&terms4[0][1]==0&&terms4.length==1) return terms4;
 			while(n4!=null){
 			polynomial x=(polynomial)n4.data;
 			if(x.coeff==0) n4=n4.next;
@@ -320,6 +321,9 @@ public class PolynomialSolver implements IPolynomialSolver {
 			try {
 				int i=0;
 				int [][]terms=FromListToArray('R');
+				if(terms[0][0]==0&&terms[0][1]==0&&terms.length==1)
+					System.out.println("R={{0,0}}");
+				else {
 				while(i<terms.length-1) {
 						if(terms[i][0]==0) i++;
 						else if(terms[i][1]==0) {
@@ -371,7 +375,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 					System.out.printf("%s","-"+"x^"+terms[i][1]+"");
 				else 
 					System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-				} catch (Exception e) {
+				}} catch (Exception e) {
 				System.out.println("polynomial R is not set");break;
 			}
 			System.out.println("\nPolynomial R is set");break;
