@@ -1,5 +1,5 @@
 package eg.edu.alexu.csd.datastructure.linkedList;
-public class SingleLinkedList {
+public class SingleLinkedList implements ILinkedList {
 	class SingleLinkedNode{
 		Object data;
 		SingleLinkedNode next;
@@ -8,7 +8,7 @@ SingleLinkedNode head,ILinkedhead;
 SingleLinkedNode n=new SingleLinkedNode();
 public void add(int index,Object element) {
 	
-	SingleLinkedNode node=new SingleLinkedNode();
+	try{SingleLinkedNode node=new SingleLinkedNode();
 	node.data=element;
 	SingleLinkedNode tail=head;
 	if(index==0) {
@@ -18,28 +18,38 @@ public void add(int index,Object element) {
 	else {
 		for(int i=0;i<index-1;i++) tail=tail.next;
 		node.next=tail.next;tail.next=node;
+	}}
+	catch(Exception e){
+		System.out.println("sorry!");
 	}
 }
 public void add(Object element) {
-	SingleLinkedNode node=new SingleLinkedNode();
+	try{SingleLinkedNode node=new SingleLinkedNode();
 	node.data=element;
 	if(head==null) head=node;
 	else {
 		SingleLinkedNode tail=head;
 		while(tail.next!=null) tail=tail.next;
 		tail.next=node;
+	}}
+	catch(Exception e){
+		System.out.println("sorry!");
+		
 	}
 	
 }
 public Object get(int index) {
-	SingleLinkedNode node=head;Object element;
+	try{SingleLinkedNode node=head;Object element;
 	for(int i=0;i<index;i++) node=node.next;
 	element=node.data;
 	return element;
-	
+	}
+	catch(Exception e){
+		return null;
+	}
 }
 public void set(int index,Object element) {
-	SingleLinkedNode node=new SingleLinkedNode();
+	try{SingleLinkedNode node=new SingleLinkedNode();
 	node.data=element;
 	SingleLinkedNode n=head;
 	if(index==0) {
@@ -51,6 +61,10 @@ public void set(int index,Object element) {
 	SingleLinkedNode l=n.next;
 	SingleLinkedNode k=l.next;
 	node.next=k;n.next=node;
+	}}
+	catch(Exception e){
+		System.out.println("sorry!");
+		
 	}
 }
 public void clear() {
@@ -61,23 +75,32 @@ public boolean isEmpty() {
 	else return true;
 }
 public void remove(int index) {
+	try {
 	SingleLinkedNode tail=head;SingleLinkedNode n;
 	if(index==0) head=head.next;
 	else {
 		for(int i=0;i<index-1;i++) tail=tail.next;
 		n=tail.next;
 		tail.next=n.next;
+	}}
+	catch(Exception e){
+		System.out.println("sorry!");
+
 	}
 	
 }
 public int size() {
+	
 	int size=0;SingleLinkedNode tail=head;
 	while(tail!=null) {
 		tail=tail.next;size++;
 	}
 	return size;
+
+
 }
 public ILinkedList sublist(int fromIndex,int toIndex) {
+	if(fromIndex<=toIndex) {
 	SingleLinkedNode n=head;ILinkedList list=new ILinkedList() {
 		@Override
 		public ILinkedList sublist(int fromIndex, int toIndex) {
@@ -151,6 +174,8 @@ for(int i=0;i<fromIndex;i++) n=n.next;
 		list.add(get(i));
 	}
   return list;
+	}
+	else {return null;}
 }
 public boolean contains(Object o) {
 	SingleLinkedNode tail=head;
@@ -159,16 +184,5 @@ public boolean contains(Object o) {
 		else tail=tail.next;
 	}
 	return false;
-}
-
-public void show() {
-	SingleLinkedNode node=head;
-	while(node.next!=null) {
-		System.out.println(node.data);
-		node=node.next;
-		
-	}
-	System.out.println(node.data);
-	
 }
 }

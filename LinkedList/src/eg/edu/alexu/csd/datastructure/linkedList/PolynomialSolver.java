@@ -11,7 +11,14 @@ public class PolynomialSolver implements IPolynomialSolver {
 			this.coeff=coeff;this.exponent=exponent;
 		}
 	}
+	int temp=0;
+	
 	public void FromArrayToList(char poly,int [][]terms) {
+		if ((int)poly>=97) {
+		temp=(int)poly;
+		temp=temp-32;
+		poly=(char) temp;
+		}
 	  switch(poly) {
 		case 'A':
 			for(int i=0;i<terms.length;i++) {
@@ -29,6 +36,11 @@ public class PolynomialSolver implements IPolynomialSolver {
 			list3.add(x);
 			}break;}}
 	public int [][] FromListToArray(char poly){
+		if ((int)poly>=97) {
+			temp=(int)poly;
+			temp=temp-32;
+			poly=(char) temp;
+			}
 		switch(poly) {
 		case 'A':
 			SingleLinkedNode n1=list1.head;
@@ -57,6 +69,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 		case 'R':
 			SingleLinkedNode n4=list4.head;
 			int [][]terms4=new int [list4.size()][2];int i4=0;
+			if(terms4[0][0]==0&&terms4[0][1]==0&&terms4.length==1) return terms4;
 			while(n4!=null){
 			polynomial x=(polynomial)n4.data;
 			if(x.coeff==0) n4=n4.next;
@@ -88,15 +101,19 @@ public class PolynomialSolver implements IPolynomialSolver {
     		for(int i=0;i<n;i++) {
     			for(int j=0;j<2;j++) terms6[i][j]=terms5[i][j];
     		}
-    		if(terms4[0][0]==0&&terms4[0][1]==0&&terms4.length==1) return terms4;
-    		else return terms6;
-			
-		}
-		 return null;
+			return terms6;
+		}return null;
 	}
 	public void setPolynomial(char poly,int [][]terms) {
+		if ((int)poly>=97) {
+			temp=(int)poly;
+			temp=temp-32;
+			poly=(char) temp;
+			}
+		try {
 		switch(poly) {
 		case 'A':
+			if(terms[0].length==2) {
 			for(int i=0;i<terms.length-1;i++) {
 				for(int j=i+1;j<terms.length;j++) {
 					if(terms[i][1]<terms[j][1]) {
@@ -108,7 +125,10 @@ public class PolynomialSolver implements IPolynomialSolver {
 						terms[j][1]=temp;
 						}
 					}
-				}
+				}}
+			else {
+				System.out.println("invalid input");
+			}
 	   	FromArrayToList('A',terms);break;
 		case 'B':
 			for(int i=0;i<terms.length-1;i++) {
@@ -139,251 +159,265 @@ public class PolynomialSolver implements IPolynomialSolver {
 				}
 		   	FromArrayToList('C',terms);break;
 		}
+		}
+    catch(Exception e) {
+    	System.out.println("invalid input");
+    }
 	}
 	public String print(char poly) {
+		if ((int)poly>=97) {
+			temp=(int)poly;
+			temp=temp-32;
+			poly=(char) temp;
+			}
 		switch(poly) {
 		case 'A':
 			try {
+				StringBuilder s=new StringBuilder("");
 				int i=0;
 				int [][]terms=FromListToArray('A');
+				if(terms.length==1&&terms[0][0]==0) return "0";
+				else {
 				while(i<terms.length-1) {
 					if(terms[i][0]==0) i++;
 					else if(terms[i][1]==0) {
-						System.out.printf("%s",terms[i][0]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append(terms[i][0]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==1&&terms[i][1]==1) {
-						System.out.printf("x");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("x");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==-1&&terms[i][1]==1) {
-						System.out.printf("-x");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("-x");
+						if(terms[i+1][0]>0) {System.out.printf("+");i++;}
 						else i++;
 					}
 					else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
-						System.out.printf("%s",terms[i][0]+"x");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append(terms[i][0]+"x");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==1&&terms[i][1]!=0) {
-						System.out.printf("%s","x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==-1&&terms[i][1]!=0) {
-						System.out.printf("%s","-"+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("-"+"x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else {
-						System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append(terms[i][0]+"x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
-				}
+				}}
 				if(terms[i][0]==0) i++;
 				else if(terms[i][1]==0) 
-					System.out.printf("%s",terms[i][0]+"");
-				else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
-				else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
+				  s.append(terms[i][0]+"");
+				else if(terms[i][0]==1&&terms[i][1]==1) s.append("x");
+				else if(terms[i][0]==-1&&terms[i][1]==1) s.append("-x");
 				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
-					System.out.printf("%s",terms[i][0]+"x");
+					s.append(terms[i][0]+"x");
 				else if(terms[i][0]==1&&terms[i][1]!=0) 
-					System.out.printf("%s","x^"+terms[i][1]+"");
+					s.append("x^"+terms[i][1]+"");
 				else if(terms[i][0]==-1&&terms[i][1]!=0)
-					System.out.printf("%s","-"+"x^"+terms[i][1]+"");
+					s.append("-"+"x^"+terms[i][1]+"");
 				else 
-					System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
+					s.append(terms[i][0]+"x^"+terms[i][1]+"");return s.toString();
 				} catch (Exception e) {
-				System.out.println("polynomial A is not set");break;
-			}
-			System.out.println("\nPolynomial A is set");break;
+				System.out.println("polynomial B is not set");break;}
 			case 'B':
 				try {
+					StringBuilder s=new StringBuilder("");
 					int i=0;
 					int [][]terms=FromListToArray('B');
+					if(terms.length==1&&terms[0][0]==0) return "0";
+					else {
 					while(i<terms.length-1) {
 						if(terms[i][0]==0) i++;
 						else if(terms[i][1]==0) {
-							System.out.printf("%s",terms[i][0]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							s.append(terms[i][0]+"");
+							if(terms[i+1][0]>0) {s.append("+");i++;}
 							else i++;
 						}
 						else if(terms[i][0]==1&&terms[i][1]==1) {
-							System.out.printf("x");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							s.append("x");
+							if(terms[i+1][0]>0) {s.append("+");i++;}
 							else i++;
 						}
 						else if(terms[i][0]==-1&&terms[i][1]==1) {
-							System.out.printf("-x");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							s.append("-x");
+							if(terms[i+1][0]>0) {System.out.printf("+");i++;}
 							else i++;
 						}
 						else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
-							System.out.printf("%s",terms[i][0]+"x");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							s.append(terms[i][0]+"x");
+							if(terms[i+1][0]>0) {s.append("+");i++;}
 							else i++;
 						}
 						else if(terms[i][0]==1&&terms[i][1]!=0) {
-							System.out.printf("%s","x^"+terms[i][1]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							s.append("x^"+terms[i][1]+"");
+							if(terms[i+1][0]>0) {s.append("+");i++;}
 							else i++;
 						}
 						else if(terms[i][0]==-1&&terms[i][1]!=0) {
-							System.out.printf("%s","-"+"x^"+terms[i][1]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							s.append("-"+"x^"+terms[i][1]+"");
+							if(terms[i+1][0]>0) {s.append("+");i++;}
 							else i++;
 						}
 						else {
-							System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+							s.append(terms[i][0]+"x^"+terms[i][1]+"");
+							if(terms[i+1][0]>0) {s.append("+");i++;}
 							else i++;
 						}
-					}
+					}}
 					if(terms[i][0]==0) i++;
 					else if(terms[i][1]==0) 
-						System.out.printf("%s",terms[i][0]+"");
-					else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
-					else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
+					  s.append(terms[i][0]+"");
+					else if(terms[i][0]==1&&terms[i][1]==1) s.append("x");
+					else if(terms[i][0]==-1&&terms[i][1]==1) s.append("-x");
 					else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
-						System.out.printf("%s",terms[i][0]+"x");
+						s.append(terms[i][0]+"x");
 					else if(terms[i][0]==1&&terms[i][1]!=0) 
-						System.out.printf("%s","x^"+terms[i][1]+"");
+						s.append("x^"+terms[i][1]+"");
 					else if(terms[i][0]==-1&&terms[i][1]!=0)
-						System.out.printf("%s","-"+"x^"+terms[i][1]+"");
+						s.append("-"+"x^"+terms[i][1]+"");
 					else 
-						System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
+						s.append(terms[i][0]+"x^"+terms[i][1]+"");return s.toString();
 					} catch (Exception e) {
 					System.out.println("polynomial B is not set");break;
 				}
-				System.out.println("\nPolynomial B is set");break;
 		case 'C':
 			try {
+				StringBuilder s=new StringBuilder("");
 				int i=0;
 				int [][]terms=FromListToArray('C');
+				if(terms.length==1&&terms[0][0]==0) return "0";
+				else {
 				while(i<terms.length-1) {
 					if(terms[i][0]==0) i++;
 					else if(terms[i][1]==0) {
-						System.out.printf("%s",terms[i][0]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append(terms[i][0]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==1&&terms[i][1]==1) {
-						System.out.printf("x");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("x");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==-1&&terms[i][1]==1) {
-						System.out.printf("-x");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("-x");
+						if(terms[i+1][0]>0) {System.out.printf("+");i++;}
 						else i++;
 					}
 					else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
-						System.out.printf("%s",terms[i][0]+"x");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append(terms[i][0]+"x");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==1&&terms[i][1]!=0) {
-						System.out.printf("%s","x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else if(terms[i][0]==-1&&terms[i][1]!=0) {
-						System.out.printf("%s","-"+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append("-"+"x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 					else {
-						System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-						if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
+						s.append(terms[i][0]+"x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
+						else i++;
+					}
+				}}
+				if(terms[i][0]==0) i++;
+				else if(terms[i][1]==0) 
+				  s.append(terms[i][0]+"");
+				else if(terms[i][0]==1&&terms[i][1]==1) s.append("x");
+				else if(terms[i][0]==-1&&terms[i][1]==1) s.append("-x");
+				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
+					s.append(terms[i][0]+"x");
+				else if(terms[i][0]==1&&terms[i][1]!=0) 
+					s.append("x^"+terms[i][1]+"");
+				else if(terms[i][0]==-1&&terms[i][1]!=0)
+					s.append("-"+"x^"+terms[i][1]+"");
+				else 
+					s.append(terms[i][0]+"x^"+terms[i][1]+"");return s.toString();
+				} catch (Exception e) {
+				System.out.println("polynomial B is not set");break;}
+		case 'R':
+			try {
+				StringBuilder s=new StringBuilder("");
+				int i=0;
+				int [][]terms=FromListToArray('R');
+				
+				while(i<terms.length-1) {
+					if(terms[i][0]==0) i++;
+					else if(terms[i][1]==0) {
+						s.append(terms[i][0]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==1&&terms[i][1]==1) {
+						s.append("x");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==-1&&terms[i][1]==1) {
+						s.append("-x");
+						if(terms[i+1][0]>0) {System.out.printf("+");i++;}
+						else i++;
+					}
+					else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
+						s.append(terms[i][0]+"x");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==1&&terms[i][1]!=0) {
+						s.append("x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
+						else i++;
+					}
+					else if(terms[i][0]==-1&&terms[i][1]!=0) {
+						s.append("-"+"x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
+						else i++;
+					}
+					else {
+						s.append(terms[i][0]+"x^"+terms[i][1]+"");
+						if(terms[i+1][0]>0) {s.append("+");i++;}
 						else i++;
 					}
 				}
 				if(terms[i][0]==0) i++;
 				else if(terms[i][1]==0) 
-					System.out.printf("%s",terms[i][0]+"");
-				else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
-				else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
+				  s.append(terms[i][0]+"");
+				else if(terms[i][0]==1&&terms[i][1]==1) s.append("x");
+				else if(terms[i][0]==-1&&terms[i][1]==1) s.append("-x");
 				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
-					System.out.printf("%s",terms[i][0]+"x");
+					s.append(terms[i][0]+"x");
 				else if(terms[i][0]==1&&terms[i][1]!=0) 
-					System.out.printf("%s","x^"+terms[i][1]+"");
+					s.append("x^"+terms[i][1]+"");
 				else if(terms[i][0]==-1&&terms[i][1]!=0)
-					System.out.printf("%s","-"+"x^"+terms[i][1]+"");
+					s.append("-"+"x^"+terms[i][1]+"");
 				else 
-					System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
+					s.append(terms[i][0]+"x^"+terms[i][1]+"");return s.toString();
 				} catch (Exception e) {
-				System.out.println("polynomial C is not set");break;
-			}
-			System.out.println("\nPolynomial C is set");break;
-		case 'R':
-			try {
-				int i=0;
-				int [][]terms=FromListToArray('R');
-				if(terms[0][0]==0&&terms[0][1]==0&&terms.length==1)
-					System.out.println("R={{0,0}}");
-				else {
-				while(i<terms.length-1) {
-						if(terms[i][0]==0) i++;
-						else if(terms[i][1]==0) {
-							System.out.printf("%s",terms[i][0]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-							else i++;
-						}
-						else if(terms[i][0]==1&&terms[i][1]==1) {
-							System.out.printf("x");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-							else i++;
-						}
-						else if(terms[i][0]==-1&&terms[i][1]==1) {
-							System.out.printf("-x");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-							else i++;
-						}
-						else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) {
-							System.out.printf("%s",terms[i][0]+"x");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-							else i++;
-						}
-						else if(terms[i][0]==1&&terms[i][1]!=0) {
-							System.out.printf("%s","x^"+terms[i][1]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-							else i++;
-						}
-						else if(terms[i][0]==-1&&terms[i][1]!=0) {
-							System.out.printf("%s","-"+"x^"+terms[i][1]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-							else i++;
-						}
-						else {
-							System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-							if(terms[i+1][0]>0) {System.out.printf(" +");i++;}
-							else i++;
-						}
-					}
-				if(terms[i][0]==0) i++;
-				else if(terms[i][1]==0) 
-					System.out.printf("%s",terms[i][0]+"");
-				else if(terms[i][0]==1&&terms[i][1]==1) System.out.printf("x");
-				else if(terms[i][0]==-1&&terms[i][1]==1) System.out.printf("-x");
-				else if((terms[i][0]!=1||terms[i][0]!=-1)&&terms[i][1]==1) 
-					System.out.printf("%s",terms[i][0]+"x");
-				else if(terms[i][0]==1&&terms[i][1]!=0) 
-					System.out.printf("%s","x^"+terms[i][1]+"");
-				else if(terms[i][0]==-1&&terms[i][1]!=0)
-					System.out.printf("%s","-"+"x^"+terms[i][1]+"");
-				else 
-					System.out.printf("%s",terms[i][0]+"x^"+terms[i][1]+"");
-				}} catch (Exception e) {
-				System.out.println("polynomial R is not set");break;
-			}
-			System.out.println("\nPolynomial R is set");break;
-		}return null;
-	}
+				System.out.println("polynomial B is not set");break;}
+			}return null;}
 	public void clearPolynomial(char poly) {
+		if ((int)poly>=97) {
+			temp=(int)poly;
+			temp=temp-32;
+			poly=(char) temp;
+			}
 		switch(poly) {
 		case 'A':
 			list1.clear();break;
@@ -396,6 +430,11 @@ public class PolynomialSolver implements IPolynomialSolver {
 		}
 	}
 	public float evaluatePolynomial(char poly, float value) {
+		if ((int)poly>=97) {
+			temp=(int)poly;
+			temp=temp-32;
+			poly=(char) temp;
+			}
 		float a=0;
 	switch(poly) {
 	case 'A':
@@ -421,6 +460,16 @@ public class PolynomialSolver implements IPolynomialSolver {
 	}return a;
     }
 	public int [][]add(char poly1,char poly2){
+		if ((int)poly1>=97) {
+    		temp=(int)poly1;
+    		temp=temp-32;
+    		poly1=(char) temp;
+    		}
+    	if ((int)poly2>=97) {
+    		temp=(int)poly2;
+    		temp=temp-32;
+    		poly2=(char) temp;
+    		}
 	if(poly1=='A'&&poly2=='B'||poly1=='A'&&poly2=='B') {
 			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('B');
 			int i=0,j=0;
@@ -437,8 +486,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 				list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
-			return FromListToArray('R');
-	}
+	return FromListToArray('R');}
 	else if(poly1=='B'&&poly2=='C'||poly1=='C'&&poly2=='B') {
 				int [][]terms1=FromListToArray('B');int [][]terms2=FromListToArray('C');
 				int i=0,j=0;
@@ -455,8 +503,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 					list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
 				while(i<terms1.length&&j==terms2.length) {
 					list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
-				return FromListToArray('R');
-	}
+				return FromListToArray('R');}
 	else if(poly1=='A'&&poly2=='C'||poly1=='C'&&poly2=='A'){
 			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('C');
 			int i=0,j=0;
@@ -473,8 +520,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 				list4.add(new polynomial(terms2[j][0],terms2[j][1]));j++;}
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
-			return FromListToArray('R');
-	}
+			return FromListToArray('R');}
 	else if(poly1=='A'&&poly2=='A') {
 			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('A');
 			int i=0,j=0;
@@ -526,9 +572,19 @@ public class PolynomialSolver implements IPolynomialSolver {
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
 			return FromListToArray('R');}
-		return null;
+		else return null;
 	}
 	public int [][]subtract(char poly1,char poly2){
+		if ((int)poly1>=97) {
+    		temp=(int)poly1;
+    		temp=temp-32;
+    		poly1=(char) temp;
+    		}
+    	if ((int)poly2>=97) {
+    		temp=(int)poly2;
+    		temp=temp-32;
+    		poly2=(char) temp;
+    		}
 		if(poly1=='A'&&poly2=='B') {
 			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('B');
 			int i=0,j=0;
@@ -553,8 +609,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
 			while(i==terms1.length&&j<terms2.length) {
-				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}
-			return FromListToArray('R');}
+				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}return FromListToArray('R');}
 		else if(poly1=='B'&&poly2=='C') {
 			int [][]terms1=FromListToArray('B');int [][]terms2=FromListToArray('C');
 			int i=0,j=0;
@@ -566,8 +621,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
 			while(i==terms1.length&&j<terms2.length) {
-				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}
-			return FromListToArray('R');}
+				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}return FromListToArray('R');}
 		else if(poly1=='C'&&poly2=='B') {
 			int [][]terms1=FromListToArray('C');int [][]terms2=FromListToArray('B');
 			int i=0,j=0;
@@ -579,8 +633,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
 			while(i==terms1.length&&j<terms2.length) {
-				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}
-			return FromListToArray('R');}
+				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}return FromListToArray('R');}
 		else if(poly1=='A'&&poly2=='C') {
 			int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('C');
 			int i=0,j=0;
@@ -592,8 +645,7 @@ public class PolynomialSolver implements IPolynomialSolver {
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
 			while(i==terms1.length&&j<terms2.length) {
-				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}
-			return FromListToArray('R');}
+				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}return FromListToArray('R');}
 		else if(poly1=='C'&&poly2=='A') {
 			int [][]terms1=FromListToArray('C');int [][]terms2=FromListToArray('A');
 			int i=0,j=0;
@@ -605,13 +657,22 @@ public class PolynomialSolver implements IPolynomialSolver {
 			while(i<terms1.length&&j==terms2.length) {
 				list4.add(new polynomial(terms1[i][0],terms1[i][1]));i++;}
 			while(i==terms1.length&&j<terms2.length) {
-				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}
-			return FromListToArray('R');}
-		else if(poly1=='A'&&poly2=='A') { list4.add(new polynomial(0,0));return FromListToArray('R');}
+				list4.add(new polynomial(-terms2[j][0],terms2[j][1]) );j++;}return FromListToArray('R');}
+		else if(poly1=='A'&&poly2=='A') {list4.add(new polynomial(0,0));return FromListToArray('R');}
 	    else if(poly1=='B'&&poly2=='B') {list4.add(new polynomial(0,0));return FromListToArray('R');}
 	    else if(poly1=='C'&&poly2=='C') {list4.add(new polynomial(0,0));return FromListToArray('R');}
-		return null;}
+	    else return null;}
     public int [][] multiply(char poly1,char poly2){
+    	if ((int)poly1>=97) {
+    		temp=(int)poly1;
+    		temp=temp-32;
+    		poly1=(char) temp;
+    		}
+    	if ((int)poly2>=97) {
+    		temp=(int)poly2;
+    		temp=temp-32;
+    		poly2=(char) temp;
+    		}
     	if(poly1=='A'&&poly2=='B'||poly1=='B'&&poly2=='A') {
     		int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('B');
     		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
@@ -668,8 +729,9 @@ public class PolynomialSolver implements IPolynomialSolver {
     			} 
     		}
     		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));
-       return FromListToArray('R');}
-       else if(poly1=='A'&&poly2=='A') {
+    		return FromListToArray('R');}
+    	
+    	else if(poly1=='A'&&poly2=='A') {
     		int [][]terms1=FromListToArray('A');int [][]terms2=FromListToArray('A');
     		int [][]terms3=new int [terms1.length*terms2.length][2];int n=0;
     		for(int i=0;i<terms1.length;i++) {
@@ -726,6 +788,6 @@ public class PolynomialSolver implements IPolynomialSolver {
     		}
     		for(int i=0;i<n;i++) list4.add(new polynomial(terms3[i][0],terms3[i][1]));
     		return FromListToArray('R');}
-    	return null;
+    	else return null;
     }
 }

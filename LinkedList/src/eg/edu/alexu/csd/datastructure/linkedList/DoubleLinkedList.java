@@ -5,6 +5,7 @@ public class DoubleLinkedList implements ILinkedList{
 	}
 	DoubleLinkedNode head,tail,ILinkedhead,ILinkedtail;
 	public void add(int index,Object element) {
+		try {
 		DoubleLinkedNode node=new DoubleLinkedNode();
 		node.data=element;DoubleLinkedNode n=head;
 		int position=size();
@@ -20,8 +21,13 @@ public class DoubleLinkedList implements ILinkedList{
 			node.previousnode=n;n.nextnode=node;
 			node.nextnode=k;k.previousnode=node;
 		}
+		}
+		catch(Exception e) {
+			System.out.println("sorry!");
+		}
 	}
 	public void add(Object element) {
+		try {
 		DoubleLinkedNode node=new DoubleLinkedNode();
 		node.data=element;
 		if(head==null) { head=node;tail=node;}
@@ -29,14 +35,26 @@ public class DoubleLinkedList implements ILinkedList{
 			  while(tail.nextnode!=null) tail=tail.nextnode;
 			  node.previousnode=tail;tail.nextnode=node;tail=node;
 		}
+		}
+		catch(Exception e) {
+			System.out.println("sorry!");
+		}
 	}
 	public Object get(int index) {
+		try {
 		DoubleLinkedNode node=head;Object element;
 		for(int i=0;i<index;i++) node=node.nextnode;
 		element=node.data;
 		return element;
+		}
+		catch(Exception e) {
+			//System.out.println("sorry!");	
+			return null;
+		}
 	}
+	
 	public void set(int index,Object element) {
+		try {
 		DoubleLinkedNode node=new DoubleLinkedNode();
 		node.data=element;
 		DoubleLinkedNode n=head;int position=size()-1;
@@ -56,6 +74,10 @@ public class DoubleLinkedList implements ILinkedList{
 		    node.nextnode=k;k.previousnode=node;
 		    
 		}
+		}
+		catch(Exception e) {
+			System.out.println("sorry!");
+		}
 	}
 	public void clear() {
 		head=null;
@@ -65,6 +87,7 @@ public class DoubleLinkedList implements ILinkedList{
 		else return false;
 	}
 	public void remove(int index) {
+		try {
 		DoubleLinkedNode n=head;int position=size()-1;
 		if(index==0) {head=head.nextnode;head.previousnode=null;}
 		else if(position==index) {tail=tail.previousnode;tail.nextnode=null;}
@@ -74,6 +97,10 @@ public class DoubleLinkedList implements ILinkedList{
 			DoubleLinkedNode k=l.nextnode;
 		    n.nextnode=k;
 		    k.previousnode=n;
+		}
+		}
+		catch(Exception e) {
+			System.out.println("sorry!");
 		}
 	}
 	public int size() {
@@ -85,6 +112,7 @@ public class DoubleLinkedList implements ILinkedList{
 		return size;
 	}
 	public ILinkedList sublist(int fromIndex,int toIndex) {
+		if(fromIndex<=toIndex) {
 		DoubleLinkedNode n=head;ILinkedList list=new ILinkedList() {
 			@Override
 			public ILinkedList sublist(int fromIndex, int toIndex) {
@@ -136,6 +164,7 @@ public class DoubleLinkedList implements ILinkedList{
 			
 			@Override
 			public void add(Object element) {
+				try {
 			  DoubleLinkedNode node=new DoubleLinkedNode();
 			  node.data=element;
 			  if(ILinkedhead==null) {ILinkedhead=node;ILinkedtail=node;}
@@ -144,7 +173,10 @@ public class DoubleLinkedList implements ILinkedList{
 				  ILinkedtail.nextnode=node;node.previousnode=ILinkedtail;
 				  ILinkedtail=node;
 			  }
-				
+				}
+				catch(Exception e) {
+					System.out.println("sorry!");
+				}
 			}
 			
 			@Override
@@ -157,15 +189,24 @@ public class DoubleLinkedList implements ILinkedList{
 		for(int i=fromIndex;i<=toIndex;i++) {
 			list.add(get(i));
 		}
-		;return list;
+		;return list;}
+	
+	else {
+		return null;
+	}
 	}
 	public boolean contains(Object o) {
+		try {
 		DoubleLinkedNode n=head;
 		while(n!=null) {
 			if(n.data==o) return true;
 			else n=n.nextnode;
 		}
 		return false;
+	}
+	catch(Exception e){
+		return (Boolean) false;
+	}
 	}
 	public void show() {
 		DoubleLinkedNode node=head;
